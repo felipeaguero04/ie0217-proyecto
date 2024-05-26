@@ -25,4 +25,4 @@ Este repositorio es el designado para el desarrollo cooperativo del proyecto fin
 
 
 ## Diseño
-![Diagrama de alto nivel general](https://imgur.com/a/8E58nyb)
+![Diagrama de alto nivel general](https://imgur.com/zunDIVA)
