@@ -25,4 +25,10 @@ Este repositorio es el designado para el desarrollo cooperativo del proyecto fin
 
 
 ## Diseño
-![Diagrama de alto nivel general](https://imgur.com/zunDIVA)
+### Flujo de programación
+![Imgur](https://i.imgur.com/fJAjost.png)
+![Imgur](https://i.imgur.com/hglk73Q.png)
+![Imgur](https://i.imgur.com/YGRtrF5.png)
+
+### Base de datos SQL
+![Imgur](https://i.imgur.com/31YZ2P0.png)
