@@ -43,7 +43,7 @@ Este repositorio es el designado para el desarrollo cooperativo del proyecto fin
     | **Moneda**                    | Tipo de moneda con el que se hizo la transacción               |
     <!-- Esto ponerlo en caso de que se agregue en la tabla SQL
     | **Fecha de la transacción**      | Cuándo se realizó la operación.                                             |
-    -->                                           |
+    -->                                           
 
     ## Tabla para Abonos a Préstamos
     | Información de la Transacción | Descripción                                                                 |
@@ -56,7 +56,7 @@ Este repositorio es el designado para el desarrollo cooperativo del proyecto fin
     | **Moneda**                    | Tipo de moneda con el que se hizo la transacción               |
     <!-- Esto ponerlo en caso de que se agregue en la tabla SQL
     | **Fecha de la transacción**      | Cuándo se realizó la operación.                                             |
-    -->                                            |
+    -->                                            
 
 
 7. Los clientes pueden tener préstamos en colones o en dólares. Cada préstamo tiene su propia tasa de interés, periodo en meses y cuota mensual, según valores ya definidos. Estos valores aseguran que cada tipo de préstamo tenga características específicas que se adapten a las necesidades y capacidades de los clientes. Hay tres tipos principales de préstamos con tasas de interés promedio,  en el contexto de préstamos, el interés es la cantidad adicional que se debe pagar junto con el capital prestado como compensación al prestamista por el uso de esos fondos. A continuación se presenta los intereses que se utilizaran para cada tipo de préstamo:
