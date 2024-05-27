@@ -57,67 +57,36 @@ que tienen los agentes.
 
 ## 2. Información general:  
 Al sistema implementar varios conceptos financieros, es importante detallarlos a continuación:
-### 1. Tipos de Préstamos Bancarios
-#### 1.1 Préstamo Personal
+###  Tipos de Préstamos Bancarios
+#### Préstamo Personal
 Un préstamo personal es un tipo de crédito no asegurado que se otorga a individuos para cubrir diversas necesidades personales, como gastos médicos, educación, consolidación de deudas, entre otros. No requiere una garantía específica, lo que significa que se basa en la solvencia crediticia del solicitante.
 
-#### 1.2 Préstamo Prendario
+####  Préstamo Prendario
 Un préstamo prendario es un tipo de crédito asegurado por un bien mueble, como joyas, vehículos o equipos electrónicos. El bien mueble actúa como garantía y, en caso de incumplimiento, el prestamista puede vender el bien para recuperar el monto prestado.
 
-#### 1.3 Préstamo Hipotecario
+#### Préstamo Hipotecario
 Un préstamo hipotecario es un crédito asegurado por una propiedad inmueble, como una casa o un terreno. Este tipo de préstamo generalmente se utiliza para comprar bienes raíces. En caso de incumplimiento, el prestamista tiene el derecho de ejecutar la hipoteca y vender la propiedad para recuperar el monto prestado.
 
-### 2. Conceptos Clave de los Préstamos
-#### 2.1 Monto del Préstamo
+###  Conceptos Clave de los Préstamos
+#### Monto del Préstamo
 El monto del préstamo es la cantidad de dinero que se presta al solicitante. Este monto debe ser devuelto al prestamista junto con los intereses acordados.
 
-#### 2.2 Tasa de Interés
-La tasa de interés es el porcentaje que se aplica sobre el monto del préstamo como costo del crédito. Puede ser fija o variable:
-- **Tasa Fija**: Permanece constante durante toda la vida del préstamo.
-- **Tasa Variable**: Puede cambiar en función de índices de referencia o condiciones del mercado.
-
-#### 2.3 Cantidad de Cuotas
-La cantidad de cuotas es el número de pagos periódicos que el prestatario debe realizar para amortizar el préstamo. Las cuotas pueden ser mensuales, trimestrales, anuales, etc.
-
-### 3. Funcionamiento de un Préstamo
-#### 3.1 Pago de Cuotas
-El préstamo se paga en cuotas periódicas que incluyen una parte del capital y una parte de los intereses. La cuota se calcula de manera que, al final del período de préstamo, todo el capital y los intereses hayan sido pagados.
-
-#### 3.2 Cálculo del Pago Mensual
-El pago mensual de un préstamo se puede calcular usando la fórmula de amortización:
-
-$$ \text{Pago Mensual} = P \times \frac{r(1+r)^n}{(1+r)^n - 1} $$
-
-donde:
-- \( P \) es el monto del préstamo.
-- \( r \) es la tasa de interés mensual.
-- \( n \) es la cantidad de cuotas.
-
-
-#### 3.3 Ejemplo de Cálculo para clarificar nuestro proyecto
-Si se realiza un préstamo de 10,000 unidades monetarias con una tasa de interés anual del 6% a ser pagado en 3 años (36 meses).
-- Monto del Préstamo (\( P \)): 10,000
-- Tasa de Interés Mensual (\( r \)): 0.06 / 12 = 0.005
-- Cantidad de Cuotas (\( n \)): 36
-
-$$ \text{Pago Mensual} = 10,000 \times \frac{0.005(1+0.005)^{36}}{(1+0.005)^{36} - 1} \approx 304.17 $$
-
-### 4. Opciones del Sistema
-#### 4.1 Préstamos Predefinidos
+###  Opciones del Sistema
+#### Préstamos Predefinidos
 El sistema ofrecerá opciones predefinidas para diferentes tipos de préstamos con valores típicos para el monto, la tasa de interés y la cantidad de cuotas:
 - **Préstamo Personal**
 - **Préstamo Prendario**
 - **Préstamo Hipotecario**
 
-### 5. Realización de de la Tabla de Pagos
-#### 5.1 Tabla de Pagos Esperados
+### Realización de de la Tabla de Pagos
+#### Tabla de Pagos Esperados
 La tabla de pagos muestra cómo se distribuyen los pagos entre el capital e intereses a lo largo del tiempo. Incluye información sobre:
 - Pago Mensual
 - Intereses Pagados
 - Capital Pagado
 - Saldo Restante
 
-#### 5.2 Ejemplo de Tabla de Pagos para clarificar el proyecto
+#### Ejemplo de Tabla de Pagos para clarificar el proyecto
 Para un préstamo de 10,000 unidades a una tasa de interés del 6% anual en 36 meses, la tabla de pagos podría verse así:
 
 | Mes | Pago Mensual | Intereses Pagados | Capital Pagado | Saldo Restante |
@@ -128,35 +97,35 @@ Para un préstamo de 10,000 unidades a una tasa de interés del 6% anual en 36 m
 | 36  | 304.17        | 1.52              | 302.65         | 0.00           |
 
 ## 3. Cuentas bancarias:
-### 1. Cuentas Bancarias
+###  Cuentas Bancarias
 Una cuenta bancaria es un servicio financiero ofrecido por entidades bancarias que permite a los clientes gestionar su dinero de forma segura. Las cuentas pueden ser de diversos tipos, pero aquí nos centraremos en las cuentas de ahorro en dos monedas: colones y dólares.
 
-#### 1.1 Cuentas en Colones y Dólares
+#### Cuentas en Colones y Dólares
 - **Cuenta en Colones**: Es una cuenta bancaria donde el saldo y las transacciones se manejan en la moneda local de Costa Rica, el colón (CRC).
 - **Cuenta en Dólares**: Es una cuenta bancaria donde el saldo y las transacciones se manejan en dólares estadounidenses (USD).
 
-#### 1.2 Propósito de las Cuentas
+#### Propósito de las Cuentas
 - **Gestión de Ahorros**: Los clientes utilizan estas cuentas para depositar, retirar y transferir dinero. Las cuentas de ahorro pueden generar intereses, proporcionando un incentivo para que los clientes mantengan su dinero en el banco.
 - **Diversificación de Moneda**: Tener cuentas en diferentes monedas permite a los clientes gestionar el riesgo cambiario y aprovechar oportunidades de inversión en distintas monedas.
 
-### 2. Certificados de Depósito a Plazo (CDP)
+###  Certificados de Depósito a Plazo (CDP)
 Un Certificado de Depósito a Plazo (CDP) es un tipo de inversión ofrecido por los bancos que permite a los clientes depositar una cantidad de dinero por un período de tiempo específico a cambio de una tasa de interés fija.
 
-#### 2.1 Características de los CDP
+#### Características de los CDP
 - **Monto de Inversión**: Los clientes depositan una cantidad fija de dinero en el CDP.
 - **Plazo**: El período durante el cual el dinero debe permanecer en el CDP. Los plazos pueden variar desde unos pocos meses hasta varios años.
 - **Tasa de Interés**: El banco paga una tasa de interés fija sobre el monto depositado, que se acuerda al inicio del plazo.
 - **Retiro al Vencimiento**: Al final del plazo, el cliente puede retirar el monto inicial más los intereses generados. Retirar el dinero antes del vencimiento puede resultar en penalizaciones.
 
-#### 2.2 Ventajas de los CDP
+#### Ventajas de los CDP
 - **Seguridad**: Los CDP suelen ser inversiones seguras con un riesgo bajo, ya que están respaldados por el banco.
 - **Tasa de Interés Fija**: Los clientes conocen la tasa de interés desde el principio, lo que proporciona certeza sobre los rendimientos de la inversión.
 - **Diversificación**: Los CDP pueden ser parte de una estrategia de diversificación para equilibrar riesgos en la cartera de inversiones del cliente.
 
-### 3. Aplicación en el Sistema Bancario
+### Aplicación en el Sistema Bancario
 El sistema bancario que estamos investigando debe permitir a los clientes gestionar sus cuentas en colones y dólares, así como invertir en CDP. Aquí hay algunas funcionalidades específicas que podrían implementarse:
 
-#### 3.1 Funcionalidades del Sistema
+####  Funcionalidades del Sistema
 - **Gestión de Cuentas**:
   - Crear y administrar cuentas en colones y dólares.
   - Ver saldos y transacciones en ambas monedas.
@@ -230,29 +199,36 @@ Los clientes pueden tener préstamos en colones o en dólares. Cada préstamo ti
 
 Pueden variar según el banco, el plazo del préstamo, el monto y la situación crediticia del cliente. Además, las tasas pueden cambiar un poco dependiendo de las condiciones económicas y del mercado financiero. Pero para este programa, se usarán tasas fijas basadas en pagos periódicos constantes y una tasa de interés constante.
 
+#### Tasa de Interés
+La tasa de interés es el porcentaje que se aplica sobre el monto del préstamo como costo del crédito. Puede ser fija o variable:
+- **Tasa Fija**: Permanece constante durante toda la vida del préstamo.
+- **Tasa Variable**: Puede cambiar en función de índices de referencia o condiciones del mercado.
 
-La cuota mensual (PMT) se calcula utilizando la siguiente fórmula:
+#### Cantidad de Cuotas
+La cantidad de cuotas es el número de pagos periódicos que el prestatario debe realizar para amortizar el préstamo. Las cuotas pueden ser mensuales, trimestrales, anuales, etc.
 
-$$
-\text{PMT} = \frac{P \cdot r \cdot (1 + r)^n}{(1 + r)^n - 1}
-$$
+### Funcionamiento de un Préstamo
+#### Pago de Cuotas
+El préstamo se paga en cuotas periódicas que incluyen una parte del capital y una parte de los intereses. La cuota se calcula de manera que, al final del período de préstamo, todo el capital y los intereses hayan sido pagados.
 
-Donde:
+#### Cálculo del Pago Mensual
+El pago mensual de un préstamo se puede calcular usando la fórmula de amortización:
+
+$$ \text{Pago Mensual} = P \times \frac{r(1+r)^n}{(1+r)^n - 1} $$
+
+donde:
 - \( P \) es el monto del préstamo.
-- \( r \) es la tasa de interés mensual (tasa anual dividida por 12).
-- \( n \) es el número total de pagos (meses).
+- \( r \) es la tasa de interés mensual.
+- \( n \) es la cantidad de cuotas.
 
-Para calcular \( r \):
+#### Ejemplo de Cálculo para clarificar nuestro proyecto
+Si se realiza un préstamo de 10,000 unidades monetarias con una tasa de interés anual del 6% a ser pagado en 3 años (36 meses).
+- Monto del Préstamo (\( P \)): 10,000
+- Tasa de Interés Mensual (\( r \)): 0.06 / 12 = 0.005
+- Cantidad de Cuotas (\( n \)): 36
 
-$$
-r = \frac{\text{Tasa Anual}}{12}
-$$
+$$ \text{Pago Mensual} = 10,000 \times \frac{0.005(1+0.005)^{36}}{(1+0.005)^{36} - 1} \approx 304.17 $$
 
-Para calcular \( n \):
-
-$$
-n = \text{Años} \times 12
-$$
 
 Es muy importante saber que esta fórmula PMT solo funciona con tasas de interés constantes. Esta fórmula se usa principalmente en finanzas para calcular el pago periódico necesario para pagar un préstamo o una inversión en un tiempo específico. Ayuda a determinar cuánto se debe pagar regularmente para saldar la deuda en un plazo específico, considerando la tasa de interés y el número de períodos. Es una herramienta útil para planificar presupuestos, evaluar inversiones y tomar decisiones financieras informadas. Por lo tanto, se utilizará en la implementación del programa para calcular el pago mensual para un número determinado de períodos del pago de un préstamo.
 
