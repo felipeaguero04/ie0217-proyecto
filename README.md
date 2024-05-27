@@ -6,7 +6,7 @@
 ### Desarrolladores: Luis Felipe Aguero Peralta - C10089, Jorge Meneses Garro - C14742 e Ismael Jimenez Carballo - B94009
 
 
-Este repositorio es el designado para el desarrollo cooperativo del proyecto final del curso Estructuras Abstractas de Datos y Algoritmos para Ingeniería IE-0217 de la UCR. A continuacion se expone la investigacion y diseño previo a alto nivel del programa a desarrollar. De igual manera, se dan instrucciones de compilacion y ejecucion para simplificar el uso del mismo.
+Este repositorio es el designado para el desarrollo cooperativo del proyecto final del curso Estructuras Abstractas de Datos y Algoritmos para Ingeniería IE-0217 de la UCR. A continuación se expone la investigación y diseño previo a alto nivel del programa a desarrollar. De igual manera, se dan instrucciones de compilación y ejecución para simplificar el uso del mismo.
 
 # Introducción
 ## 1. Modalidad de Operación: 
