@@ -284,12 +284,14 @@ Teniendo clara esa lógica a gran escala del programa, ahora se puede proceder a
 ![Imgur](https://i.imgur.com/hglk73Q.png)
 
 Por último en los diagramas de flujo, se tiene el modo de operación de atención al cliente que es, objetivamente, más complejo que el de obtención de información de préstamos. Esto dado que el rango de posibles operaciones para el cliente es mucho mayor, pues se tienen las opciones de realizar un depósito, un retiro, una transferencia, abonos, solicitar un reporte de préstamos y solicitar un préstamo. Sin embargo, previo a esto, es esencial identificar al cliente por medio de su ID numérico para saber sobre cuál cuenta realizar las acciones. De igual forma, si se obtiene que este cliente no tiene cuentas, se le obliga a crear una para acceder a las funciones; o si tiene solo un tipo de cuenta, se le da la opción de crear una nueva del otro tipo.  Posterior a esto, se muestra la modularización de las operaciones y cómo cada una tiene sus entradas distintas. También se debe destacar que las transacciones deben ser escritas en el registro de transacciones dle banco para tener un historial de lo realizado. Asimismo, la solicitud de un préstamo debe ser registrado en la base de datos de préstamos, mas no en el registro de transacciones. Por último, la obtención de un reporte de préstamos asociados a un cliente debe ser impreso en un archivo .txt y no se registra en ningún lado de la base de datos.
-![Imgur](https://i.imgur.com/YGRtrF5.png)
+
+![Imgur](https://i.imgur.com/BZde5Mg.png)
 
 ### Base de datos SQL
 
 La última sección del diseño pero no menos importante es la estructura que tendrá la base de datos SQL que almacenará todos los datos necesarios para el funcionamiento del sistema. Dicha estructura es la mostrada a continuación, donde se puede ver que ***client_ID*** será una llave clave para la interrelación de todas las tablas en la base de datos.
-![Imgur](https://i.imgur.com/31YZ2P0.png)
+
+![Imgur](https://i.imgur.com/0nwTomn.png)
 
 <!--
 ## Imagen 1
