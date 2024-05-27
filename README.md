@@ -1,6 +1,6 @@
-# IE0217 - Estructuras Absttractas de Datos y Algoritmos
+# IE0217 - Estructuras Abstractas de Datos y Algoritmos
 
-## Proyecto Final: Sistema de Gestion Bancaria
+## Proyecto Final: Sistema de Ggestion Bancaria
 
 ### Universidad de Costa Rica, I - S - 2024
 ### Desarrolladores: Luis Felipe Aguero Peralta - C10089, Jorge Meneses Garro - C14742 e Ismael Jimenez Carballo - B94009
