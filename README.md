@@ -53,6 +53,8 @@ que tienen los agentes.
 - **Obtener Información sobre Préstamos**:
   - Muestra información sobre tipos de préstamos, tasas de interés, requisitos, etc.
 
+# Investigación
+
 ## 2. Información general:  
 Al sistema implementar varios conceptos financieros, es importante detallarlos a continuación:
 ### 1. Tipos de Préstamos Bancarios
@@ -125,7 +127,6 @@ Para un préstamo de 10,000 unidades a una tasa de interés del 6% anual en 36 m
 | ... | ...           | ...               | ...            | ...            |
 | 36  | 304.17        | 1.52              | 302.65         | 0.00           |
 
-# Investigación
 ## 3. Cuentas bancarias:
 ### 1. Cuentas Bancarias
 Una cuenta bancaria es un servicio financiero ofrecido por entidades bancarias que permite a los clientes gestionar su dinero de forma segura. Las cuentas pueden ser de diversos tipos, pero aquí nos centraremos en las cuentas de ahorro en dos monedas: colones y dólares.
