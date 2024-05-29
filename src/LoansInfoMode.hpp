@@ -12,5 +12,8 @@ enum LoanMenuOptions{
 };
 
 const void getGeneralLoanInfo();
+const void getPersonalLoanInfo(float* _rate);
+const void getPrendaryLoanInfo(float* _rate);
+const void getMortgageInfo(float* _rate);
 
 #endif

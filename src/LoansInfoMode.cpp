@@ -1,5 +1,17 @@
 #include "LoansInfoMode.hpp"
 
+const void getPersonalLoanInfo(float* _rate){
+    *_rate = 0.23;
+};
+
+const void getPrendaryLoanInfo(float* _rate){
+    *_rate = 0.17;
+};
+
+const void getMortgageInfo(float* _rate){
+    *_rate = 0.11;
+};
+
 const void getGeneralLoanInfo(){
     // Opciones del menú
     int loanType, currency;
@@ -38,16 +50,20 @@ const void getGeneralLoanInfo(){
         // Sentencia switch-case para el tipo de préstamo
         switch (loanType){
             case PERSONAL:
+                getPersonalLoanInfo(&rate);
                 break;
 
             case PRENDARY:
+                getPrendaryLoanInfo(&rate);
                 break;
 
             case MORTGAGE:
+                getMortgageInfo(&rate);
                 break;
 
             case RETURN:
                 cout << "Regresando al menú principal..." << endl;
+                goto goback; // Saltar al final
                 break;
 
             default:
@@ -61,7 +77,7 @@ const void getGeneralLoanInfo(){
         cout << "----------------" << endl;
         cout << "La tabla de pagos se mostrará usando los parámetros predeterminados para el tipo de préstamo seleccionado." << endl;
         cout << "Cantidad de cuotas: "<< payments << endl;
-        cout << "Tasa de interés: "<< rate << "%" << endl;
+        cout << "Tasa de interés: "<< rate*100 << "%" << endl;
         cout << "Ingrese el monto del préstamo: ";
         cin >> amount;
         cout << endl;
@@ -82,6 +98,10 @@ const void getGeneralLoanInfo(){
             cout << endl;
         }
 
+
+
     }while(loanType != RETURN);
-    
+
+    goback:
+        return;
 }
