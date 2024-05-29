@@ -4,6 +4,11 @@
 #include<iostream>
 using namespace std;
 
+enum Currencies{
+    DOLLARS = 1,
+    COLONES
+};
+
 enum LoanMenuOptions{
     PERSONAL = 1,
     PRENDARY,

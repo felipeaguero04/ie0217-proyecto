@@ -10,7 +10,7 @@ const void getPersonalLoanInfo(float* _rate){
     cout << "4. Rango común de tasas de interés: 20%" << " - 25%" << endl;
     // Cambiar en memoria el interés predeterminado
     *_rate = 0.23;
-    cout << "\nTasa de interés predeterminada: " << (*_rate)*100 << endl;
+    cout << "\nTasa de interés predeterminada: " << (*_rate)*100 << '%' << endl;
 };
 
 const void getPrendaryLoanInfo(float* _rate){
@@ -24,7 +24,7 @@ const void getPrendaryLoanInfo(float* _rate){
     cout << "5. Rango común de tasas de interés: 15%" << " - 18%" << endl;
     // Cambiar en memoria el interés predeterminado
     *_rate = 0.17;
-    cout << "\nTasa de interés predeterminada: " << (*_rate)*100 << endl;
+    cout << "\nTasa de interés predeterminada: " << (*_rate)*100 << '%' << endl;
 };
 
 const void getMortgageInfo(float* _rate){
@@ -38,7 +38,7 @@ const void getMortgageInfo(float* _rate){
     cout << "5. Rango común de tasas de interés: 10%" << " - 12%" << endl;
     // Cambiar en memoria el interés predeterminado
     *_rate = 0.11;
-    cout << "\nTasa de interés predeterminada: " << (*_rate)*100 << endl;
+    cout << "\nTasa de interés predeterminada: " << (*_rate)*100 << '%' << endl;
 };
 
 const void getGeneralLoanInfo(){
@@ -50,7 +50,8 @@ const void getGeneralLoanInfo(){
 
     // Variables para parámetros de la tabla de pagos
     float rate; // Tasa de interes
-    int payments = 240, amount; // Cantidad de cuotas y monto
+    int payments = 240; // Cantidad de cuotas
+    unsigned long int amount; // Monto
 
     do{
         // Encabezado del menu
@@ -68,10 +69,12 @@ const void getGeneralLoanInfo(){
 
         // Sentencia switch-case para el tipo de moneda
         switch (currency){
-            case 1:
+            case DOLLARS:
+                cout << "Ha seleccionado dólares estadounidenses ($)" << endl;
                 break;
 
-            case 2:
+            case COLONES:
+                cout << "Ha seleccionado colones costarricenses (₡)" << endl;
                 break;
 
             default:
@@ -126,7 +129,7 @@ const void getGeneralLoanInfo(){
         cin >> amount;
         cout << endl;
         // Pregunta si desea personalizar
-        cout << "¿Desea personalizar la tasa de interés y la cantidad de cuotas? (Y/N)" << endl;
+        cout << "¿Desea personalizar la tasa de interés y la cantidad de cuotas? (Y/N) ";
         cin >> customTable;
         cout << endl;
 
