@@ -1,5 +1,6 @@
 #include <iostream>
-#include "Menu.hpp"
+#include "MainMenu.hpp"
+#include "LoansInfoMode.hpp"
 using namespace std;
 
 int main(){
@@ -19,6 +20,7 @@ int main(){
 
         switch(mainOption){
             case LOANS:
+                getGeneralLoanInfo();
                 break;
             case CLIENTS:
                 break;

@@ -1,5 +1,5 @@
-#ifndef MENUPRINCIPAL_HPP
-#define MENUPRINCIPAL_HPP
+#ifndef MAINMENU_HPP
+#define MAINMENU_HPP
 
 enum MainOptions{
     LOANS = 1,
