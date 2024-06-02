@@ -1,24 +1,28 @@
-#ifndef GENERALLOANINFO_HPP
-#define GENERALLOANINFO_HPP
+#ifndef LOANSINFOMODE_HPP
+#define LOANSINFOMODE_HPP
 
-#include<iostream>
-using namespace std;
+#include <iostream>
 
-enum Currencies{
+enum Currencies {
     DOLLARS = 1,
     COLONES
 };
 
-enum LoanMenuOptions{
+enum LoanMenuOptions {
     PERSONAL = 1,
     PRENDARY,
     MORTGAGE,
     RETURN
 };
 
-const void getGeneralLoanInfo();
-const void getPersonalLoanInfo(float* _rate);
-const void getPrendaryLoanInfo(float* _rate);
-const void getMortgageInfo(float* _rate);
+// Function declarations for loan information retrieval
+void getGeneralLoanInfo();
+void getPersonalLoanInfo(float* _rate);
+void getPrendaryLoanInfo(float* _rate);
+void getMortgageInfo(float* _rate);
 
-#endif
+// Function declaration for payment table printing
+void imprimirTablaPagos(unsigned long int monto, float tasaInteres, int numeroPagos);
+double calcularPagoMensual(unsigned long int monto, float tasaInteres, int numeroPagos);
+
+#endif // LOANSINFOMODE_HPP
