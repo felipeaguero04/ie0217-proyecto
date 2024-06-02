@@ -8,6 +8,15 @@
 
 Este repositorio es el designado para el desarrollo cooperativo del proyecto final del curso Estructuras Abstractas de Datos y Algoritmos para Ingeniería IE-0217 de la UCR. A continuación se expone la investigación y diseño previo a alto nivel del programa a desarrollar. De igual manera, se dan instrucciones de compilación y ejecución para simplificar el uso del mismo.
 
+## Instrucciones de compilación y ejecución
+
+Este instructivo para la compilación y ejecución de los archivos en esta carpeta está enfocado hacia una terminal bash de Linux, pues todo fue pensado en un entorno de desarrollo de Ubuntu 20.04, que era le OS usado por todos los integrantes del equipo de desarrollo. A continuación se exponen las formas de compilar y ejecutar por medio de un Makefile que está incluido en el repositorio al clonarlo. Se debe estar en el _root_ del repositorio, pues es donde está ubicado el Makefile. También, es crucial verificar la existencia de un sub-directorio 'bin', pues es donde se alojan los archivos compilados generados a partir de lso códigos fuente. También se adjunta un _target_ en el Makefile que permite desplegar la documentación Doxygen en FireFox.
+
+
+    $ make          # Compila y ejecuta el programa
+    $ make clean    # Limpia los archivos compilados creados
+    $ make doxygen  # Despliega la documentación Doxygen
+
 # Introducción
 ## 1. Modalidad de Operación: 
 El sistema a implementar será utilizado por agentes que atienden a clientes a través de ventanillas en una entidad bancaria y es importante entender los modos de operación disponibles

@@ -18,5 +18,8 @@ $(EXECUTABLE): $(OBJECTS)
 $(BIN_DIR)/%.exe: $(SRC_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+doxygen:
+	firefox html/index.html
+
 clean:
 	rm $(BIN_DIR)/*.exe
