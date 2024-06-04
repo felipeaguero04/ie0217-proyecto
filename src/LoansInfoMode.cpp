@@ -140,6 +140,7 @@ void getGeneralLoanInfo() {
         cout << "¿En cuál tipo de moneda desea cotizar el préstamo?" << endl;
         cout << "\t1. Dólares ($)" << endl;
         cout << "\t2. Colones (₡)" << endl;
+        cout << "\t3. Volver" << endl;
         cout << "Ingrese su elección: ";
 
         // Solicita al usuario seleccionar el tipo de moneda.
@@ -158,7 +159,10 @@ void getGeneralLoanInfo() {
             cout << "Ha seleccionado dólares estadounidenses ($)" << endl;
         } else if (currency == 2) {  // Verifica si se seleccionaron colones.
             cout << "Ha seleccionado colones costarricenses (₡)" << endl;
-        } else {
+        } else if(currency == 3){
+            cout << "Regresando al menú principal..." << endl;
+            return;
+        }else {
             cout << "Opción no válida. Por favor, seleccione una opción del 1 al 2. Inténtelo de nuevo." << endl;  // Maneja la selección de moneda inválida.
             continue;
         }
@@ -243,7 +247,7 @@ void getGeneralLoanInfo() {
                 continue; 
             }
             
-            cout << "Ingrese la tasa de interés (0 - 1): ";
+            cout << "Ingrese la tasa de interés (0 - 100): ";
             // Solicita al usuario ingresar la tasa de interés.
             try {
             InputValidator::rateValidatedInput(rate, loanType);
