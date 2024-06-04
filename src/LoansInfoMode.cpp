@@ -1,4 +1,5 @@
 #include "LoansInfoMode.hpp"
+#include "InputValidator.hpp"
 #include <iostream>
 #include <iomanip>
 #include <cmath>
@@ -140,14 +141,25 @@ void getGeneralLoanInfo() {
         cout << "\t1. Dólares ($)" << endl;
         cout << "\t2. Colones (₡)" << endl;
         cout << "Ingrese su elección: ";
-        cin >> currency;  // Solicita al usuario seleccionar el tipo de moneda.
+
+        // Solicita al usuario seleccionar el tipo de moneda.
+        try {
+            InputValidator::menusValidatedInput(currency);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            // Para que vuelva al menu a peir la opcion al usuario
+            continue; 
+        }
+
 
         if (currency == 1) {  // Verifica si se seleccionaron dólares.
             cout << "Ha seleccionado dólares estadounidenses ($)" << endl;
         } else if (currency == 2) {  // Verifica si se seleccionaron colones.
             cout << "Ha seleccionado colones costarricenses (₡)" << endl;
         } else {
-            cout << "Seleccione un tipo de moneda válido." << endl;  // Maneja la selección de moneda inválida.
+            cout << "Opción no válida. Por favor, seleccione una opción del 1 al 2. Inténtelo de nuevo." << endl;  // Maneja la selección de moneda inválida.
             continue;
         }
 
@@ -157,7 +169,17 @@ void getGeneralLoanInfo() {
         cout << "\t3. Préstamo hipotecario." << endl;
         cout << "\t4. Volver." << endl;
         cout << "Ingrese su elección: ";
-        cin >> loanType;  // Solicita al usuario seleccionar el tipo de préstamo.
+    
+        // Solicita al usuario seleccionar el tipo de préstamo.
+        try {
+            InputValidator::menusValidatedInput(loanType);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            // Para que vuelva al menu a peir la opcion al usuario
+            continue; 
+        }
 
         switch (loanType) {
             case 1:
@@ -173,7 +195,7 @@ void getGeneralLoanInfo() {
                 cout << "Regresando al menú principal..." << endl;
                 return;  // Regresa al menú principal.
             default:
-                cout << "Seleccione un tipo de préstamo válido." << endl;  // Maneja la selección de préstamo inválida.
+                cout << "Opción no válida. Por favor, seleccione una opción del 1 al 4. Inténtelo de nuevo." << endl;  // Maneja la selección de préstamo inválida.
                 continue;
         }
 
@@ -183,17 +205,55 @@ void getGeneralLoanInfo() {
         cout << "Cantidad de cuotas: " << payments << endl;
         cout << "Tasa de interés: " << rate * 100 << "%" << endl;
         cout << "Ingrese el monto del préstamo: ";
-        cin >> amount;  // Solicita al usuario ingresar el monto del préstamo.
-        cout << endl;
+
+        // Solicita al usuario ingresar el monto del préstamo.                
+        try {
+            InputValidator::amountValidatedInput(amount);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            // Para que vuelva al menu a peir la opcion al usuario
+            continue; 
+        }
+
 
         cout << "¿Desea personalizar la tasa de interés y la cantidad de cuotas? (Y/N) ";
-        cin >> customTable;  // Solicita al usuario si desea personalizar la tabla de pagos.
+        // Solicita al usuario si desea personalizar la tabla de pagos.                
+        try {
+            InputValidator::ynValidationInput(customTable);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            // Para que vuelva al menu a peir la opcion al usuario
+            continue; 
+        }
 
         if (customTable == 'Y' || customTable == 'y') {
             cout << "Ingrese la cantidad de cuotas: ";
-            cin >> payments;  // Solicita al usuario ingresar la cantidad de cuotas.
+            // Solicita al usuario ingresar la cantidad de cuotas.
+            try {
+            InputValidator::paymentsValidatedInput(payments);
+            } 
+            // El catch agarra el error 
+            catch (const invalid_argument& e) {
+                cout << e.what() << endl;
+                // Para que vuelva al menu a peir la opcion al usuario
+                continue; 
+            }
+            
             cout << "Ingrese la tasa de interés (0 - 1): ";
-            cin >> rate;  // Solicita al usuario ingresar la tasa de interés.
+            // Solicita al usuario ingresar la tasa de interés.
+            try {
+            InputValidator::rateValidatedInput(rate, loanType);
+            } 
+            // El catch agarra el error 
+            catch (const invalid_argument& e) {
+                cout << e.what() << endl;
+                // Para que vuelva al menu a peir la opcion al usuario
+                continue; 
+            }
         }
 
         imprimirTablaPagos(amount, rate, payments);  // Imprime la tabla de pagos personalizada.
