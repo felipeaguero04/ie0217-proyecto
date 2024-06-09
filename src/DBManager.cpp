@@ -1,5 +1,12 @@
 #include "DBManager.hpp"
 
+int DBManager::callback(void* data, int argc, char** argv, char** azColName){
+    for(int i = 0; i < argc; i++){
+        cout << azColName[i] << " = " << (argv[i] ? argv[i] : "NULL") << endl;
+    }
+    return 0;
+}
+
 DBManager::DBManager(){
     // Crear y abrir la base de datos
     rc = sqlite3_open("banksys.db", &db);
@@ -10,7 +17,7 @@ DBManager::DBManager(){
 
     // Crear tabla clientes
     sql = "CREATE TABLE IF NOT EXISTS CLIENTS ("
-        "client_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+        "client_ID INT PRIMARY KEY NOT NULL,"
         "first_name TEXT NOT NULL,"
         "last_name TEXT NOT NULL,"
         "CHECK(client_ID <= 999999999)";
@@ -60,7 +67,7 @@ DBManager::DBManager(){
     // Crear tabla de cuentas en dolares
     sql = "CREATE TABLE IF NOT EXISTS DOLLAR_ACCOUNTS("
         "owner INT NOT NULL,"
-        "account_ID BIGINT PRIMARY KEY NOT NULL,"
+        "account_ID BIGINT PRIMARY KEY AUTOINCREMENT NOT NULL,"
         "balance MONEY NOT NULL,"
         "interest FLOAT NOT NULL,"
         "CHECK(account_ID % 2 = 0));" ;
@@ -75,7 +82,7 @@ DBManager::DBManager(){
     // Crear tabla de registro de transacciones
     sql = "CREATE TABLE IF NOT EXISTS COLONES_ACCOUNTS("
         "owner INT NOT NULL,"
-        "account_ID BIGINT PRIMARY KEY NOT NULL,"
+        "account_ID BIGINT PRIMARY KEY AUTOINCREMENT NOT NULL,"
         "balance MONEY NOT NULL,"
         "interest FLOAT NOT NULL,"
         "CHECK(account_ID % 2 != 0));";
@@ -92,13 +99,6 @@ DBManager::~DBManager(){
     sqlite3_close(db);
     cout << "Base de datos cerrada correctamente!" << endl;
 };
-
-int DBManager::callback(void* data, int argc, char** argv, char** azColName){
-    for(int i = 0; i < argc; i++){
-        cout << azColName[i] << " = " << (argv[i] ? argv[i] : "NULL") << endl;
-    }
-    return 0;
-}
 
 void DBManager::addAccount(int client, int curr, float rate){
 

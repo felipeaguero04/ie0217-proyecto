@@ -20,6 +20,7 @@ class DBManager{
     public:
         DBManager();
         ~DBManager();
+        void addClient();
         void addAccount(int client, int curr, float rate);
         void deposit(int amount, int curr, int acc_ID);
         void withdrawal(int amount, int acc_ID);
@@ -28,5 +29,4 @@ class DBManager{
         void loanReport(int client_ID);
         void addTransaction();
         void addLoan(int amount, float rate, int payments, int type);
-};
 };
