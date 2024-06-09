@@ -99,3 +99,35 @@ int DBManager::callback(void* data, int argc, char** argv, char** azColName){
     }
     return 0;
 }
+
+void DBManager::addAccount(int client, int curr, float rate){
+
+}
+
+void DBManager::deposit(int amount, int curr, int acc_ID){
+
+}
+
+void DBManager::withdrawal(int amount, int acc_ID){
+
+};
+
+void DBManager::transference(int amount, int curr, int acc_ID){
+
+};
+
+void DBManager::loanPayment(int amount, int curr, int loan_ID){
+
+};
+
+void DBManager::loanReport(int client_ID){
+
+};
+
+void DBManager::addTransaction(){
+
+};
+
+void DBManager::addLoan(int amount, float rate, int payments, int type){
+    
+};

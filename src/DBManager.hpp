@@ -18,8 +18,15 @@ class DBManager{
         // Callback function
         static int callback(void* data, int argc, char** argv, char** azColName);
     public:
-        // Constructor
         DBManager();
-        // Destructor 
         ~DBManager();
+        void addAccount(int client, int curr, float rate);
+        void deposit(int amount, int curr, int acc_ID);
+        void withdrawal(int amount, int acc_ID);
+        void transference(int amount, int curr, int acc_ID);
+        void loanPayment(int amount, int curr, int loan_ID);
+        void loanReport(int client_ID);
+        void addTransaction();
+        void addLoan(int amount, float rate, int payments, int type);
+};
 };
