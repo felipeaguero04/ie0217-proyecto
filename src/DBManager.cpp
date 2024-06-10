@@ -16,7 +16,8 @@ DBManager::DBManager(){
     } else cout << "Base de datos abierta correctamente!" << endl;
 
     // Crear tabla clientes
-    sql = "CREATE TABLE IF NOT EXISTS CLIENTS ("
+    sql = "PRAGMA foreign_keys = ON;"
+        "CREATE TABLE IF NOT EXISTS CLIENTS ("
         "client_ID INT PRIMARY KEY NOT NULL,"
         "first_name TEXT NOT NULL,"
         "last_name TEXT NOT NULL,"
