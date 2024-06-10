@@ -22,6 +22,7 @@ class DBManager{
     public:
         DBManager();
         ~DBManager();
+        void checkClientID();
         void addClient();
         void addAccount(int client, int curr, float rate);
         void deposit(int amount, int curr, int acc_ID);

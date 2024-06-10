@@ -21,6 +21,7 @@ DBManager::DBManager(){
         "first_name TEXT NOT NULL,"
         "last_name TEXT NOT NULL,"
         "CHECK(client_ID <= 999999999));";
+
     rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
     if (rc != SQLITE_OK) {
         cerr << "SQL error: " << errMsg << endl;
@@ -41,6 +42,7 @@ DBManager::DBManager(){
         "paid_amount MONEY NOT NULL,"
         "currency CHAR NOT NULL,"
         "FOREIGN KEY (client_ID) REFERENCES CLIENTS (client_ID));";
+
     rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
     if (rc != SQLITE_OK) {
         cerr << "SQL error: " << errMsg << endl;
@@ -49,13 +51,15 @@ DBManager::DBManager(){
         cout << "Tabla creada exitosamente!" << endl;
     }
 
-    // Crear tabla de cuentas en dolares
+    // Crear tabla de cuentas
     sql = "CREATE TABLE IF NOT EXISTS ACCOUNTS("
         "owner INT NOT NULL,"
         "account_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
         "balance MONEY NOT NULL,"
         "rate FLOAT NOT NULL,"
-        "currency CHAR NOT NULL);";
+        "currency CHAR NOT NULL,"
+        "FOREIGN KEY (owner) REFERENCES CLIENTS (client_ID));";
+
     rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
     if (rc != SQLITE_OK) {
         cerr << "SQL error: " << errMsg << endl;
@@ -89,13 +93,30 @@ DBManager::~DBManager(){
     cout << "Base de datos cerrada correctamente!" << endl;
 };
 
+void DBManager::checkClientID(){
+
+};
+
+void DBManager::addClient(){
+
+};
+
 void DBManager::addAccount(int client, int curr, float rate){
+    // Verificar si ya hay dos cuentas
+    // Crear un string con los parametros ingresados
+    std::stringstream ss;
+    string aux;
+
+    // Agregar cuenta a la DB
     if (curr == 1){
-        // Crear un string con los parametros ingresados
-        std::stringstream ss;
+        // LImpiar sstream
+        ss.str("");
+        // Crear directiva con los parametros
         ss << "INSERT INTO ACCOUNTS (owner, balance, rate, currency) VALUES(" << client << ", 0, " << rate << ", '$');";
-        string aux = ss.str();
+        aux = ss.str();
+        // Alocar memoria del nuevo char*
         char* extra = new char[aux.length() + 1];
+        // EScribir en el nuevo char*
         strcpy(extra, aux.c_str());
         // Asignar el string creado a la directiva SQL
         sql = extra;
@@ -109,12 +130,16 @@ void DBManager::addAccount(int client, int curr, float rate){
             cout << "Cuenta creada exitosamente!" << endl;
             delete extra; // Liberar la memoria
         }
+        
     } else if (curr == 2){
-        // Crear un string con los parametros ingresados
-        std::stringstream ss;
+        // LImpiar sstream
+        ss.str("");
+        // Crear directiva con los parametros
         ss << "INSERT INTO ACCOUNTS (owner, balance, rate, currency) VALUES(" << client << ", 0, " << rate << ", '₡'); ";
-        string aux = ss.str();
+        aux = ss.str();
+        // Alocar memoria del nuevo char*
         char* extra = new char[aux.length() + 1];
+        // EScribir en el nuevo char*
         strcpy(extra, aux.c_str());
         // Asignar el string creado a la directiva SQL
         sql = extra;
