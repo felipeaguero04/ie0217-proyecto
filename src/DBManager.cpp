@@ -20,7 +20,7 @@ DBManager::DBManager(){
         "client_ID INT PRIMARY KEY NOT NULL,"
         "first_name TEXT NOT NULL,"
         "last_name TEXT NOT NULL,"
-        "CHECK(client_ID <= 999999999)";
+        "CHECK(client_ID <= 999999999));";
     rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
     if (rc != SQLITE_OK) {
         cerr << "SQL error: " << errMsg << endl;
@@ -32,14 +32,15 @@ DBManager::DBManager(){
     // Crear tabla loans
     sql = "CREATE TABLE IF NOT EXISTS LOANS ("
         "client_ID INT NOT NULL,"
-        "loan_ID INT PRIMARY KEY NOT NULL,"
+        "loan_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
         "type TEXT NOT NULL,"
         "amount MONEY NOT NULL,"
         "payments INT NOT NULL,"
         "interest FLOAT NOT NULL,"
         "made_payments INT NOT NULL,"
         "paid_amount MONEY NOT NULL,"
-        "currency CHAR NOT NULL);";
+        "currency CHAR NOT NULL,"
+        "FOREIGN KEY (client_ID) REFERENCES CLIENTS (client_ID));";
     rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
     if (rc != SQLITE_OK) {
         cerr << "SQL error: " << errMsg << endl;
@@ -48,14 +49,12 @@ DBManager::DBManager(){
         cout << "Tabla creada exitosamente!" << endl;
     }
 
-    // Crear tabla de registro de transacciones
-    sql = "CREATE TABLE IF NOT EXISTS TRANSACTIONS("
-        "transaction_ID INT NOT NULL,"
-        "type TEXT NOT NULL,"
-        "loan_ID INT NOT NULL,"
-        "amount MONEY NOT NULL,"
-        "source INT NOT NULL,"
-        "destiny INT NOT NULL);";
+    // Crear tabla de cuentas en dolares
+    sql = "CREATE TABLE IF NOT EXISTS ACCOUNTS("
+        "owner INT NOT NULL,"
+        "account_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+        "balance MONEY NOT NULL,"
+        "rate FLOAT NOT NULL);";
     rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
     if (rc != SQLITE_OK) {
         cerr << "SQL error: " << errMsg << endl;
@@ -67,10 +66,11 @@ DBManager::DBManager(){
     // Crear tabla de cuentas en dolares
     sql = "CREATE TABLE IF NOT EXISTS DOLLAR_ACCOUNTS("
         "owner INT NOT NULL,"
-        "account_ID BIGINT PRIMARY KEY AUTOINCREMENT NOT NULL,"
+        "daccount_ID BIGINT PRIMARY KEY NOT NULL,"
         "balance MONEY NOT NULL,"
         "interest FLOAT NOT NULL,"
-        "CHECK(account_ID % 2 = 0));" ;
+        "CHECK(daccount_ID % 2 = 0),"
+        "FOREIGN KEY (daccount_ID) REFERENCES ACCOUNTS (account_ID));";
     rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
     if (rc != SQLITE_OK) {
         cerr << "SQL error: " << errMsg << endl;
@@ -79,17 +79,36 @@ DBManager::DBManager(){
         cout << "Tabla creada exitosamente!" << endl;
     }
 
-    // Crear tabla de registro de transacciones
+    // Crear tabla de cuentas en colones
     sql = "CREATE TABLE IF NOT EXISTS COLONES_ACCOUNTS("
         "owner INT NOT NULL,"
-        "account_ID BIGINT PRIMARY KEY AUTOINCREMENT NOT NULL,"
+        "caccount_ID BIGINT PRIMARY KEY NOT NULL,"
         "balance MONEY NOT NULL,"
         "interest FLOAT NOT NULL,"
-        "CHECK(account_ID % 2 != 0));";
+        "CHECK(caccount_ID % 2 != 0),"
+        "FOREIGN KEY (caccount_ID) REFERENCES ACCOUNTS (account_ID));";
     rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
     if (rc != SQLITE_OK) {
         cerr << "SQL error: " << errMsg << endl;
         sqlite3_free(errMsg); 
+    } else {
+        cout << "Tabla creada exitosamente!" << endl;
+    }
+
+    // Crear tabla de registro de transacciones
+    sql = "CREATE TABLE IF NOT EXISTS TRANSACTIONS("
+        "transaction_ID INT PRIMARY KEY NOT NULL,"
+        "type TEXT NOT NULL,"
+        "loan_ID INT NOT NULL,"
+        "amount MONEY NOT NULL,"
+        "source INT NOT NULL,"
+        "destiny INT NOT NULL,"
+        "FOREIGN KEY (source) REFERENCES ACCOUNTS (account_ID),"
+        "FOREIGN KEY (destiny) REFERENCES ACCOUNTS (account_ID));";
+    rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
+    if (rc != SQLITE_OK) {
+        cerr << "SQL error: " << errMsg << endl;
+        sqlite3_free(errMsg);
     } else {
         cout << "Tabla creada exitosamente!" << endl;
     }
@@ -101,7 +120,31 @@ DBManager::~DBManager(){
 };
 
 void DBManager::addAccount(int client, int curr, float rate){
+    std::stringstream ss;
+    ss << "INSERT INTO ACCOUNTS (owner, balance, rate) VALUES(" << client << ", 0, " << rate << ");";
+    string aux = ss.str();
+    char* extra = new char[aux.length() + 1];
+    strcpy(extra, aux.c_str());
+    sql = extra;
 
+    rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
+    if (rc != SQLITE_OK) {
+        cerr << "SQL error: " << errMsg << endl;
+        sqlite3_free(errMsg);
+    } else {
+        cout << "Cuenta creada exitosamente!" << endl;
+        delete extra;
+    }
+    // Selecciona datos de la tabla
+    sql = "SELECT * from ACCOUNTS;";
+
+    rc = sqlite3_exec(db, sql, callback, (void*)data, &errMsg);
+    if (rc != SQLITE_OK) {
+        cerr << "SQL error: " << errMsg << endl;
+        sqlite3_free(errMsg);
+    } else {
+        cout << "Operation done successfully" << endl;
+    }
 }
 
 void DBManager::deposit(int amount, int curr, int acc_ID){
