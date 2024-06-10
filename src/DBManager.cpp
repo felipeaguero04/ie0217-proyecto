@@ -130,7 +130,7 @@ void DBManager::addAccount(int client, int curr, float rate){
             cout << "Cuenta creada exitosamente!" << endl;
             delete extra; // Liberar la memoria
         }
-        
+
     } else if (curr == 2){
         // LImpiar sstream
         ss.str("");

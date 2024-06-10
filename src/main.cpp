@@ -4,10 +4,13 @@
 #include "InputValidator.hpp"
 #include <stdexcept>
 #include <limits>
+#include "DBManager.hpp"
+
 using namespace std;
 
 int main(){
     int mainOption;
+    DBManager DBManager;
     do{
         cout << "-------------------------------------------" << endl;
         cout << "--------SISTEMA DE GESTION BANCARIA--------" << endl;
