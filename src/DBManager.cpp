@@ -54,43 +54,12 @@ DBManager::DBManager(){
         "owner INT NOT NULL,"
         "account_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
         "balance MONEY NOT NULL,"
-        "rate FLOAT NOT NULL);";
+        "rate FLOAT NOT NULL,"
+        "currency CHAR NOT NULL);";
     rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
     if (rc != SQLITE_OK) {
         cerr << "SQL error: " << errMsg << endl;
         sqlite3_free(errMsg);
-    } else {
-        cout << "Tabla creada exitosamente!" << endl;
-    }
-
-    // Crear tabla de cuentas en dolares
-    sql = "CREATE TABLE IF NOT EXISTS DOLLAR_ACCOUNTS("
-        "owner INT NOT NULL,"
-        "daccount_ID BIGINT PRIMARY KEY NOT NULL,"
-        "balance MONEY NOT NULL,"
-        "interest FLOAT NOT NULL,"
-        "CHECK(daccount_ID % 2 = 0),"
-        "FOREIGN KEY (daccount_ID) REFERENCES ACCOUNTS (account_ID));";
-    rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
-    if (rc != SQLITE_OK) {
-        cerr << "SQL error: " << errMsg << endl;
-        sqlite3_free(errMsg);
-    } else {
-        cout << "Tabla creada exitosamente!" << endl;
-    }
-
-    // Crear tabla de cuentas en colones
-    sql = "CREATE TABLE IF NOT EXISTS COLONES_ACCOUNTS("
-        "owner INT NOT NULL,"
-        "caccount_ID BIGINT PRIMARY KEY NOT NULL,"
-        "balance MONEY NOT NULL,"
-        "interest FLOAT NOT NULL,"
-        "CHECK(caccount_ID % 2 != 0),"
-        "FOREIGN KEY (caccount_ID) REFERENCES ACCOUNTS (account_ID));";
-    rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
-    if (rc != SQLITE_OK) {
-        cerr << "SQL error: " << errMsg << endl;
-        sqlite3_free(errMsg); 
     } else {
         cout << "Tabla creada exitosamente!" << endl;
     }
@@ -115,35 +84,50 @@ DBManager::DBManager(){
 };
 
 DBManager::~DBManager(){
+    // Desconectar de la base de datos
     sqlite3_close(db);
     cout << "Base de datos cerrada correctamente!" << endl;
 };
 
 void DBManager::addAccount(int client, int curr, float rate){
-    std::stringstream ss;
-    ss << "INSERT INTO ACCOUNTS (owner, balance, rate) VALUES(" << client << ", 0, " << rate << ");";
-    string aux = ss.str();
-    char* extra = new char[aux.length() + 1];
-    strcpy(extra, aux.c_str());
-    sql = extra;
+    if (curr == 1){
+        // Crear un string con los parametros ingresados
+        std::stringstream ss;
+        ss << "INSERT INTO ACCOUNTS (owner, balance, rate, currency) VALUES(" << client << ", 0, " << rate << ", '$');";
+        string aux = ss.str();
+        char* extra = new char[aux.length() + 1];
+        strcpy(extra, aux.c_str());
+        // Asignar el string creado a la directiva SQL
+        sql = extra;
 
-    rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
-    if (rc != SQLITE_OK) {
-        cerr << "SQL error: " << errMsg << endl;
-        sqlite3_free(errMsg);
-    } else {
-        cout << "Cuenta creada exitosamente!" << endl;
-        delete extra;
-    }
-    // Selecciona datos de la tabla
-    sql = "SELECT * from ACCOUNTS;";
+        // Ejecutar la directiva
+        rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
+        if (rc != SQLITE_OK) {
+            cerr << "SQL error: " << errMsg << endl;
+            sqlite3_free(errMsg);
+        } else {
+            cout << "Cuenta creada exitosamente!" << endl;
+            delete extra; // Liberar la memoria
+        }
+    } else if (curr == 2){
+        // Crear un string con los parametros ingresados
+        std::stringstream ss;
+        ss << "INSERT INTO ACCOUNTS (owner, balance, rate, currency) VALUES(" << client << ", 0, " << rate << ", '₡'); ";
+        string aux = ss.str();
+        char* extra = new char[aux.length() + 1];
+        strcpy(extra, aux.c_str());
+        // Asignar el string creado a la directiva SQL
+        sql = extra;
 
-    rc = sqlite3_exec(db, sql, callback, (void*)data, &errMsg);
-    if (rc != SQLITE_OK) {
-        cerr << "SQL error: " << errMsg << endl;
-        sqlite3_free(errMsg);
-    } else {
-        cout << "Operation done successfully" << endl;
+        // Ejecutar la directiva
+        rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
+        if (rc != SQLITE_OK) {
+            cerr << "SQL error: " << errMsg << endl;
+            sqlite3_free(errMsg);
+        } else {
+            cout << "Cuenta creada exitosamente!" << endl;
+            delete extra; // Liberar la memoria
+        }
     }
 }
 
