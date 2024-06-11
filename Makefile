@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -Wall -std=c++11
-LDFLAGS = -lstdc++fs
+LDFLAGS = -lstdc++fs -lsqlite3
 
 SRC_DIR = src
 BIN_DIR = bin
