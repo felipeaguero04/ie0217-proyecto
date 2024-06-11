@@ -7,6 +7,18 @@ int DBManager::callback(void* data, int argc, char** argv, char** azColName){
     return 0;
 }
 
+int DBManager::getLoanReport(void* data, int argc, char** argv, char** azColName){
+    // Crear archivo para el reporte
+    std::ofstream output_file("reporte.txt");
+    if(output_file){
+        // Imprimir todos los outputs 
+        for(int i = 0; i < argc; i++){
+            output_file << azColName[i] << " = " << (argv[i] ? argv[i] : "NULL") << endl;
+        }
+    }
+    return 0;
+}
+
 DBManager::DBManager(){
     // Crear y abrir la base de datos
     rc = sqlite3_open("banksys.db", &db);
@@ -174,7 +186,23 @@ void DBManager::loanPayment(int amount, int curr, int loan_ID){
 };
 
 void DBManager::loanReport(int client_ID){
-
+    std::stringstream ss;
+    string aux;
+    ss << "SELECT * FROM LOANS WHERE client_ID = " << client_ID << ";";
+    aux = ss.str();
+    // Alocar memoria del nuevo char*
+    char* extra = new char[aux.length() + 1];
+    // EScribir en el nuevo char*
+    strcpy(extra, aux.c_str());
+    // Asignar el string creado a la directiva SQL
+    sql = extra;
+    rc = sqlite3_exec(db, sql, getLoanReport, (void*)data, &errMsg);
+    if (rc != SQLITE_OK) {
+        cerr << "SQL error: " << errMsg << endl;
+        sqlite3_free(errMsg);
+    } else {
+        cout << "Operation done successfully" << endl;
+    }
 };
 
 void DBManager::addTransaction(){

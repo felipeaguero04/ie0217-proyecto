@@ -2,6 +2,7 @@
 #include <sqlite3.h>
 #include <cstring>
 #include <sstream>
+#include <fstream>
 
 using namespace std;
 
@@ -19,6 +20,7 @@ class DBManager{
         const char* data = "Callback function called";
         // Callback function
         static int callback(void* data, int argc, char** argv, char** azColName);
+        static int getLoanReport(void* data, int argc, char** argv, char** azColName);
     public:
         DBManager();
         ~DBManager();
