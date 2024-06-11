@@ -210,20 +210,23 @@ void DBManager::addTransaction(){
 };
 
 void DBManager::addLoan(int client_ID, int amount, float rate, int payments, int type, int curr){
+    // String para crear directiva SQL
     std::stringstream ss;
-    string aux, typestr;
-    char currchar;
+    // Variables necesarias para la directiva
+    string aux, typestr, currchar;
+
+    // Asignar strings de tipo de prestamo y tipo de moneda basado en parametros
     if (type == 1) typestr = "Personal";
     else if (type == 2) typestr = "Prendario";
     else if (type == 3) typestr = "Hipotecario";
 
-    if (curr == 1) currchar = '$';
-    else if (curr == 2) currchar = '₡';
+    if (curr == 1) currchar = "$";
+    else if (curr == 2) currchar = "₡";
 
+    // Directiva SQL
     ss << "INSERT INTO LOANS (client_ID, type, amount, payments, interest, made_payments, paid_amount, currency) "
         << "VALUES (" << client_ID << ", '" << typestr << "', " << amount << ", " << payments << ", " << rate << ", "
         << "0, 0, '" << currchar << "');";
-
     aux = ss.str();
     // Alocar memoria del nuevo char*
     char* extra = new char[aux.length() + 1];
