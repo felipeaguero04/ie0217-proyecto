@@ -16,16 +16,35 @@ bool InputValidator::menusValidatedInput(int& input) {
 
 
 bool InputValidator::amountValidatedInput(unsigned long int& input) {
-    std::cin >> input;
-    // Revisa si hay errores, esto sucede si cin.good es false, es una flag de error
-    if (!std::cin.good() || input < 0) {
-        // Se resetea el flag de error
-        std::cin.clear(); 
-        // Descartamos los caracteres que haya en el buffer de entrada  
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        // Envia el error al catch
-        throw std::invalid_argument("Error: Entrada no válida. Por favor, ingrese un número que este en el rango de 0 a 4.294.967.295");
+    // Que la entrada por el usuario sea un string
+    std::string userInput;
+    std::cin >> userInput;
+
+    // Verifica la entrada, por si es un número negativo
+    if (!userInput.empty() && userInput[0] == '-') {
+        throw std::invalid_argument("Error: Entrada no válida. No se permiten números negativos.");
     }
+
+    // Convierte la cadena a unsigned long int
+    try {
+        size_t pos;
+        unsigned long int value = std::stoul(userInput, &pos); // El pos es le cuenta del ultimo digito convertido
+
+        // Verificar si toda la entrada se ha convertido correctamente
+        if (pos != userInput.length()) { // Si el difieren el pos y la longitud de la entrada es que habia un caracter invalido
+            throw std::invalid_argument("Error: Entrada no válida. Por favor, ingrese un número válido.");
+        }
+
+        // Asingna input como el valor de entrada
+        input = value;
+    } catch (const std::invalid_argument& e) {
+        // Si hay un error de conversión
+        throw std::invalid_argument("Error: Entrada no válida. Por favor, ingrese un número válido.");
+    } catch (const std::out_of_range& e) {
+        // Si el número está fuera del rango de unsigned long int
+        throw std::invalid_argument("Error: Entrada no válida.  Por favor, ingrese un número que este en el rango de 0 a 4.294.967.295");
+    }
+
     return true;
 }
 
