@@ -209,6 +209,33 @@ void DBManager::addTransaction(){
 
 };
 
-void DBManager::addLoan(int amount, float rate, int payments, int type){
-    
+void DBManager::addLoan(int client_ID, int amount, float rate, int payments, int type, int curr){
+    std::stringstream ss;
+    string aux, typestr;
+    char currchar;
+    if (type == 1) typestr = "Personal";
+    else if (type == 2) typestr = "Prendario";
+    else if (type == 3) typestr = "Hipotecario";
+
+    if (curr == 1) currchar = '$';
+    else if (curr == 2) currchar = '₡';
+
+    ss << "INSERT INTO LOANS (client_ID, type, amount, payments, interest, made_payments, paid_amount, currency) "
+        << "VALUES (" << client_ID << ", '" << typestr << "', " << amount << ", " << payments << ", " << rate << ", "
+        << "0, 0, '" << currchar << "');";
+
+    aux = ss.str();
+    // Alocar memoria del nuevo char*
+    char* extra = new char[aux.length() + 1];
+    // EScribir en el nuevo char*
+    strcpy(extra, aux.c_str());
+    // Asignar el string creado a la directiva SQL
+    sql = extra;
+    rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
+    if (rc != SQLITE_OK) {
+        cerr << "SQL error: " << errMsg << endl;
+        sqlite3_free(errMsg);
+    } else {
+        cout << "Records created successfully" << endl;
+    }
 };

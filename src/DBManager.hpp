@@ -33,5 +33,5 @@ class DBManager{
         void loanPayment(int amount, int curr, int loan_ID);
         void loanReport(int client_ID);
         void addTransaction();
-        void addLoan(int amount, float rate, int payments, int type);
+        void addLoan(int client_ID, int amount, float rate, int payments, int type, int curr);
 };
