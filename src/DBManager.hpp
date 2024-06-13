@@ -25,13 +25,13 @@ class DBManager{
         DBManager();
         ~DBManager();
         void checkClientID();
-        void addClient();
+        void addClient(int idClient, std::string firsName, std::string lastName);
         void addAccount(int client, int curr, float rate);
         void deposit(int amount, int curr, int acc_ID);
         void withdrawal(int amount, int acc_ID);
         void transference(int amount, int curr, int acc_ID);
         void loanPayment(int amount, int curr, int loan_ID);
         void loanReport(int client_ID);
-        void addTransaction();
+        void addTransaction(int accountID2, int accoutnID1, unsigned long int amountTransaction, int typeTransaction, int loanID);
         void addLoan(int client_ID, int amount, float rate, int payments, int type, int curr);
 };

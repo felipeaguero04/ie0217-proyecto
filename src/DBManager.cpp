@@ -83,14 +83,15 @@ DBManager::DBManager(){
 
     // Crear tabla de registro de transacciones
     sql = "CREATE TABLE IF NOT EXISTS TRANSACTIONS("
-        "transaction_ID INT PRIMARY KEY NOT NULL,"
+        "transaction_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
         "type TEXT NOT NULL,"
-        "loan_ID INT NOT NULL,"
+        "loan_ID INT,"
         "amount MONEY NOT NULL,"
         "source INT NOT NULL,"
         "destiny INT NOT NULL,"
         "FOREIGN KEY (source) REFERENCES ACCOUNTS (account_ID),"
         "FOREIGN KEY (destiny) REFERENCES ACCOUNTS (account_ID));";
+        
     rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
     if (rc != SQLITE_OK) {
         cerr << "SQL error: " << errMsg << endl;
@@ -110,8 +111,30 @@ void DBManager::checkClientID(){
 
 };
 
-void DBManager::addClient(){
+void DBManager::addClient(int idClient, std::string firstName, std::string lastName){
+    std::stringstream ss;
+    string aux;
 
+    ss.str("");
+    // Crear directiva con los parametros
+    ss << "INSERT INTO CLIENTS (client_ID, first_name, last_name) VALUES("<< idClient << ", '" << firstName << "', '" << lastName << "');";
+    aux = ss.str();
+    // Alocar memoria del nuevo char*
+    char* extra = new char[aux.length() + 1];
+    // EScribir en el nuevo char*
+    strcpy(extra, aux.c_str());
+    // Asignar el string creado a la directiva SQL
+    sql = extra;
+
+    // Ejecutar la directiva
+    rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
+    if (rc != SQLITE_OK) {
+        cerr << "SQL error: " << errMsg << endl;
+        sqlite3_free(errMsg);
+    } else {
+        cout << "Cuenta creada exitosamente!" << endl;
+        delete extra; // Liberar la memoria
+    }
 };
 
 void DBManager::addAccount(int client, int curr, float rate){
@@ -205,8 +228,39 @@ void DBManager::loanReport(int client_ID){
     }
 };
 
-void DBManager::addTransaction(){
+void DBManager::addTransaction(int accountID2, int accountID1, unsigned long int amountTransaction, int typeTransaction, int loanID){
+    std::stringstream ss;
+    string aux, typestr;
+    ss.str("");
 
+    // Convierte el argumento a un string que indica el tipo de transaccion
+    if (typeTransaction == 1) typestr = "Realizar Depósito";
+    else if (typeTransaction == 2) typestr = "Realizar Retiro";
+    else if (typeTransaction == 3) typestr = "Transferir entre Cuentas";
+    // Crear directiva con los parametros
+    ss << "INSERT INTO TRANSACTIONS (type, loan_ID, amount, source, destiny) VALUES('"
+       << typestr << "' , " 
+       << loanID << ","
+       << amountTransaction << ", "
+       << accountID1 << ", "
+       << accountID2 << ");";
+    aux = ss.str();
+    // Alocar memoria del nuevo char*
+    char* extra = new char[aux.length() + 1];
+    // EScribir en el nuevo char*
+    strcpy(extra, aux.c_str());
+    // Asignar el string creado a la directiva SQL
+    sql = extra;
+
+    // Ejecutar la directiva
+    rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
+    if (rc != SQLITE_OK) {
+        cerr << "SQL error: " << errMsg << endl;
+        sqlite3_free(errMsg);
+    } else {
+        cout << "Cuenta creada exitosamente!" << endl;
+        delete extra; // Liberar la memoria
+    }
 };
 
 void DBManager::addLoan(int client_ID, int amount, float rate, int payments, int type, int curr){
