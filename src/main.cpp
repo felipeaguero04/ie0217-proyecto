@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <limits>
 #include "DBManager.hpp"
+#include "Clientmode.hpp"
 
 using namespace std;
 
@@ -22,14 +23,11 @@ int main(){
 
         cout << "Ingrese su eleccion: ";
 
-        
         try {
             InputValidator::menusValidatedInput(mainOption);
         } 
-        // El catch agarra el error 
         catch (const invalid_argument& e) {
             cout << e.what() << endl;
-            // Para que vuelva al menu a peir la opcion al usuario
             continue; 
         }
 
@@ -38,6 +36,7 @@ int main(){
                 getGeneralLoanInfo();
                 break;
             case CLIENTS:
+                mostrarMenuAtencionClientes();
                 break;
             case EXIT:
                 cout << "Saliendo del sistema..." << endl;
