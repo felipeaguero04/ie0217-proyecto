@@ -82,6 +82,7 @@ bool InputValidator::paymentsValidatedInput(int& input) {
 
 bool InputValidator::rateValidatedInput(float& input, int loanType) {
     std::cin >> input;
+    input /= 100;
     // Revisa si hay errores, esto sucede si cin.good es false, es una flag de error
     if (!std::cin.good() || input < 0) {
         // Se resetea el flag de error
