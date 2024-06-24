@@ -107,7 +107,28 @@ DBManager::~DBManager(){
     cout << "Base de datos cerrada correctamente!" << endl;
 };
 
-void DBManager::checkClientID(){
+void DBManager::checkClientID(int ID){
+    stringstream ss;
+    string aux;
+    // Consulta SELECT para obtener el balance actual
+    ss << "SELECT COUNT(client_ID) FROM CLIENTS WHERE client_ID = " << ID << ";";
+    aux = ss.str();
+    sql= aux.c_str();
+
+    sqlite3_stmt *stmt;
+    int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+        std::cerr << "Error en sqlite3_prepare_v2 (SELECT): " << sqlite3_errmsg(db) << std::endl;
+        return;
+    }
+
+    // Ejecutar consulta SELECT
+    rc = sqlite3_step(stmt);
+    if (rc == SQLITE_ROW) {
+        int quant = sqlite3_column_int(stmt, 0);
+        if (quant == 1) cout << "El cliente existe!" << endl;
+        else if (quant == 0) cout << "El cliente no existe!" << endl;
+    }
 
 };
 

@@ -24,7 +24,7 @@ class DBManager{
     public:
         DBManager();
         ~DBManager();
-        void checkClientID();
+        void checkClientID(int ID);
         void addClient(int idClient, std::string firsName, std::string lastName);
         void addAccount(int client, int curr, float rate);
         void deposit(int amount, int curr, int acc_ID);
