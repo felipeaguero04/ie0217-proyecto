@@ -29,7 +29,7 @@ class DBManager{
         void addAccount(int client, int curr, float rate);
         void deposit(int amount, int curr, int acc_ID);
         void withdrawal(int amount, int acc_ID);
-        void transference(int amount, int curr, int acc_ID);
+        void transference(int amount, int curr, int acc_ID, int dest_acc_ID);
         void loanPayment(int amount, int curr, int loan_ID);
         void loanReport(int client_ID);
         void addTransaction(int accountID2, int accoutnID1, unsigned long int amountTransaction, int typeTransaction, int loanID);

@@ -218,6 +218,9 @@ void DBManager::deposit(int amount, int curr, int acc_ID){
         // Finalizar statement SELECT
         sqlite3_finalize(stmt);
     }
+
+    // REgistrar transaccion
+    addTransaction(acc_ID, acc_ID, amount, 1, -1);
 }
 
 void DBManager::withdrawal(int amount, int acc_ID){
@@ -264,9 +267,11 @@ void DBManager::withdrawal(int amount, int acc_ID){
         // Finalizar statement SELECT
         sqlite3_finalize(stmt);
     }
+    // Registrar transaccion
+    addTransaction(acc_ID, acc_ID, amount, 2, -1);
 };
 
-void DBManager::transference(int amount, int curr, int acc_ID){
+void DBManager::transference(int amount, int curr, int acc_ID, int dest_acc_ID){
 
 };
 
@@ -300,9 +305,10 @@ void DBManager::addTransaction(int accountID2, int accountID1, unsigned long int
     ss.str("");
 
     // Convierte el argumento a un string que indica el tipo de transaccion
-    if (typeTransaction == 1) typestr = "Realizar Depósito";
-    else if (typeTransaction == 2) typestr = "Realizar Retiro";
-    else if (typeTransaction == 3) typestr = "Transferir entre Cuentas";
+    if (typeTransaction == 1) typestr = "Depósito";
+    else if (typeTransaction == 2) typestr = "Retiro";
+    else if (typeTransaction == 3) typestr = "Transferencia";
+    else if (typeTransaction == 4) typestr = "Abono a prestamo";
     // Crear directiva con los parametros
     ss << "INSERT INTO TRANSACTIONS (type, loan_ID, amount, source, destiny) VALUES('"
        << typestr << "' , " 
