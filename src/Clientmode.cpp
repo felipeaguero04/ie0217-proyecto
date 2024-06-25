@@ -6,13 +6,16 @@ using namespace std;
 void mostrarMenuAtencionClientes() {
     int opcion;
     do {
-        cout << "\n--- Operaciones Bancarias disponibles ---\n";
-        cout << "1. Realizar Depósito\n";
-        cout << "2. Realizar Retiro\n";
-        cout << "3. Transferencia entre Cuentas\n";
-        cout << "4. Abonar a Préstamo\n";
-        cout << "5. Mostrar Reporte de Préstamos\n";
-        cout << "6. Volver al Menú Principal\n";
+        cout << "------------------------------------------------" << endl;
+        cout << "-------OPERACIONES BANCARIAS DISPONIBLES--------" << endl;
+        cout << "------------------------------------------------" << endl;
+        cout << "¿Cuál operación disponible desea realizar?" << endl;
+        cout << "\t1. Realizar Depósito\n";
+        cout << "\t2. Realizar Retiro\n";
+        cout << "\t3. Transferencia entre Cuentas\n";
+        cout << "\t4. Abonar a Préstamo\n";
+        cout << "\t5. Mostrar Reporte de Préstamos\n";
+        cout << "\t6. Volver al Menú Principal\n";
         cout << "Seleccione una opción: ";
         cin >> opcion;
 
