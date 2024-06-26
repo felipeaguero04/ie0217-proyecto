@@ -110,7 +110,7 @@ DBManager::~DBManager(){
     cout << "Base de datos cerrada correctamente!" << endl;
 };
 
-void DBManager::checkClientID(int ID){
+int DBManager::checkClientID(int ID){
     stringstream ss;
     string aux;
     // Consulta SELECT para obtener el balance actual
@@ -122,17 +122,25 @@ void DBManager::checkClientID(int ID){
     int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
         std::cerr << "Error en sqlite3_prepare_v2 (SELECT): " << sqlite3_errmsg(db) << std::endl;
-        return;
+        return -1; //Retorna algo no valido para un caso de error
     }
 
     // Ejecutar consulta SELECT
     rc = sqlite3_step(stmt);
     if (rc == SQLITE_ROW) {
         int quant = sqlite3_column_int(stmt, 0);
-        if (quant == 1) cout << "El cliente existe!" << endl;
-        else if (quant == 0) cout << "El cliente no existe!" << endl;
+        if (quant == 1) {
+        cout << "El cliente existe!" << endl;
+        return 1; //Retorna 1 si el cliente existe
+        }
+        else if (quant == 0) {
+        cout << "El cliente no existe!" << endl;
+        return 0; //Retorna 0 si el cliente no existe
+        }
     }
 
+    sqlite3_finalize(stmt); // Finaliza el sqlite para cualquier caso
+    return -1;
 };
 
 void DBManager::addClient(int idClient, std::string firstName, std::string lastName){
