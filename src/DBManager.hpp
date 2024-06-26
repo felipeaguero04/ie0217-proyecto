@@ -83,6 +83,13 @@ class DBManager{
         int checkClientID(int ID);
 
         /**
+         * @brief Mostrar la informacion de las cuentas de un cliente especifico.
+         * 
+         * @param clientID ID del cliente dueno de las cuentas a mostrar.
+         */
+        void getAccountsInfo(int clientID);
+
+        /**
          * @brief Agregar un cliente a la base de datos.
          * 
          * Esta funcion no es incluida en las operaciones de atencion al cliente. ES usada para la creacion de cleintes default en el sistema.

@@ -143,6 +143,21 @@ int DBManager::checkClientID(int ID){
     return -1;
 };
 
+void DBManager::getAccountsInfo(int clientID){
+    cout << "Cuentas del cliente: " << clientID << endl;
+    std::stringstream ss;
+    std::string aux;
+    ss << "SELECT * FROM ACCOUNTS WHERE owner = " << clientID << ";";
+    aux = ss.str();
+    sql = aux.c_str();
+
+    rc = sqlite3_exec(db, sql, callback, (void*)data, &errMsg);
+    if (rc != SQLITE_OK) {
+        cerr << "SQL error: " << errMsg << endl;
+        sqlite3_free(errMsg);
+    }
+};
+
 void DBManager::addClient(int idClient, std::string firstName, std::string lastName){
     std::stringstream ss;
     string aux;
@@ -164,7 +179,7 @@ void DBManager::addClient(int idClient, std::string firstName, std::string lastN
         cerr << "SQL error: " << errMsg << endl;
         sqlite3_free(errMsg);
     } else {
-        cout << "Cuenta creada exitosamente!" << endl;
+        cout << "Cliente creado exitosamente!" << endl;
         delete extra; // Liberar la memoria
     }
 };
@@ -179,7 +194,7 @@ void DBManager::addAccount(int client, int curr, float rate) {
     if (curr == 1) mon = "$";
     else if (curr == 2) mon = "₡";
     else {
-        std::cerr << "Moneda no válida. Usa 1 para USD y 2 para CRC." << std::endl;
+        cerr << "Moneda no válida. Usa 1 para USD y 2 para CRC." << endl;
         return;
     }
 
@@ -247,12 +262,12 @@ void DBManager::deposit(int amount, int curr, int acc_ID) {
         // Ejecutar consulta UPDATE
         rc = sqlite3_exec(db, sql, nullptr, nullptr, &errMsg);
         if (rc != SQLITE_OK) {
-            std::cerr << "SQL Error: " << errMsg << std::endl;
+            cerr << "SQL Error: " << errMsg << endl;
             sqlite3_free(errMsg);
             sqlite3_finalize(stmt);
             return;
         } else {
-            std::cout << "Balance actualizado exitosamente!" << std::endl;
+            cout << "Balance actualizado exitosamente!" << endl;
         }
 
         sqlite3_finalize(stmt);
@@ -336,7 +351,7 @@ void DBManager::loanReport(int client_ID) {
         std::cerr << "SQL error: " << errMsg << std::endl;
         sqlite3_free(errMsg);
     } else {
-        std::cout << "Reporte generado exitosamente en reporte.txt" << std::endl;
+        std::cout << "Reporte generado exitosamente! Revisar archivo reporte.txt en este directorio." << std::endl;
     }
 
     output_file.close(); // Cerrar el archivo
@@ -373,7 +388,7 @@ void DBManager::addTransaction(int accountID2, int accountID1, unsigned long int
         cerr << "SQL error: " << errMsg << endl;
         sqlite3_free(errMsg);
     } else {
-        cout << "Cuenta creada exitosamente!" << endl;
+        cout << "Transaccion registrada exitosamente!" << endl;
         delete extra; // Liberar la memoria
     }
 };
@@ -408,6 +423,6 @@ void DBManager::addLoan(int client_ID, int amount, float rate, int payments, int
         cerr << "SQL error: " << errMsg << endl;
         sqlite3_free(errMsg);
     } else {
-        cout << "Records created successfully" << endl;
+        cout << "Prestamo creado exitosamente!" << endl;
     }
 };
