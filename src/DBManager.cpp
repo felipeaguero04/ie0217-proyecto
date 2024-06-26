@@ -301,11 +301,11 @@ void DBManager::withdrawal(int amount, int acc_ID){
     addTransaction(acc_ID, acc_ID, amount, 2, -1);
 };
 
-void DBManager::transference(int amount, int curr, int acc_ID, int dest_acc_ID){
+void DBManager::transference(int amount, int acc_ID, int dest_acc_ID){
 
 };
 
-void DBManager::loanPayment(int amount, int curr, int loan_ID){
+void DBManager::loanPayment(int amount, int acc_ID, int loan_ID){
 
 };
 
