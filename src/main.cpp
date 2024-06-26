@@ -11,8 +11,10 @@ using namespace std;
 
 int main(){
     int mainOption;
+    int clientChek;
     DBManager DBManager;
     DBManager.addClient(305510245, "Luis", "Felipe");
+    DBManager.addClient(208190783, "Ismael", "Jimenez");
     DBManager.addAccount(305510245, 2, 0);
     DBManager.addLoan(305510245, 400000, 0.02, 20, 1, 2);
     DBManager.addLoan(305510245, 400000, 0.02, 20, 2, 2);
@@ -41,7 +43,13 @@ int main(){
                 getGeneralLoanInfo();
                 break;
             case CLIENTS:
-                mostrarMenuAtencionClientes();
+                cout << "Ingrese el ID del cliente" << endl;
+                cin >> clientChek;
+                if (DBManager.checkClientID(clientChek) == 1){
+                    mostrarMenuAtencionClientes();
+                } else {
+                    continue;
+                }
                 break;
             case EXIT:
                 cout << "Saliendo del sistema..." << endl;
