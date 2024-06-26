@@ -12,6 +12,11 @@ using namespace std;
 int main(){
     int mainOption;
     DBManager DBManager;
+    DBManager.addClient(305510245, "Luis", "Felipe");
+    DBManager.addAccount(305510245, 2, 0);
+    DBManager.addLoan(305510245, 400000, 0.02, 20, 1, 2);
+    DBManager.addLoan(305510245, 400000, 0.02, 20, 2, 2);
+
     do{
         cout << "-------------------------------------------" << endl;
         cout << "--------SISTEMA DE GESTION BANCARIA--------" << endl;

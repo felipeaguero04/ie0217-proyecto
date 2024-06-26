@@ -7,17 +7,20 @@ int DBManager::callback(void* data, int argc, char** argv, char** azColName){
     return 0;
 }
 
-int DBManager::getLoanReport(void* data, int argc, char** argv, char** azColName){
-    // Crear archivo para el reporte
-    std::ofstream output_file("reporte.txt");
-    if(output_file){
-        // Imprimir todos los outputs 
-        for(int i = 0; i < argc; i++){
-            output_file << azColName[i] << " = " << (argv[i] ? argv[i] : "NULL") << endl;
+int DBManager::getLoanReport(void* data, int argc, char** argv, char** azColName) {
+    std::ofstream* output_file = static_cast<std::ofstream*>(data);
+
+    if (output_file->is_open()) {
+        // Imprimir todos los outputs
+        for (int i = 0; i < argc; i++) {
+            *output_file << azColName[i] << " = " << (argv[i] ? argv[i] : "NULL") << std::endl;
         }
+        *output_file << "------------------------" << std::endl; // Separador entre registros
+    } else {
+        std::cerr << "Error al escribir en el archivo." << std::endl;
     }
     return 0;
-}
+};
 
 DBManager::DBManager(){
     // Crear y abrir la base de datos
@@ -306,24 +309,29 @@ void DBManager::loanPayment(int amount, int curr, int loan_ID){
 
 };
 
-void DBManager::loanReport(int client_ID){
+void DBManager::loanReport(int client_ID) {
     std::stringstream ss;
-    string aux;
+    std::string aux;
     ss << "SELECT * FROM LOANS WHERE client_ID = " << client_ID << ";";
     aux = ss.str();
-    // Alocar memoria del nuevo char*
-    char* extra = new char[aux.length() + 1];
-    // EScribir en el nuevo char*
-    strcpy(extra, aux.c_str());
-    // Asignar el string creado a la directiva SQL
-    sql = extra;
-    rc = sqlite3_exec(db, sql, getLoanReport, (void*)data, &errMsg);
+    sql = aux.c_str();
+
+    std::ofstream output_file("reporte.txt", std::ios::out); // Abrir archivo para escritura
+
+    if (!output_file.is_open()) {
+        std::cerr << "No se pudo abrir el archivo para escribir." << std::endl;
+        return;
+    }
+
+    rc = sqlite3_exec(db, sql, getLoanReport, &output_file, &errMsg);
     if (rc != SQLITE_OK) {
-        cerr << "SQL error: " << errMsg << endl;
+        std::cerr << "SQL error: " << errMsg << std::endl;
         sqlite3_free(errMsg);
     } else {
-        cout << "Operation done successfully" << endl;
+        std::cout << "Reporte generado exitosamente en reporte.txt" << std::endl;
     }
+
+    output_file.close(); // Cerrar el archivo
 };
 
 void DBManager::addTransaction(int accountID2, int accountID1, unsigned long int amountTransaction, int typeTransaction, int loanID){

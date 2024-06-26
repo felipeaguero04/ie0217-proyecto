@@ -33,7 +33,7 @@ void mostrarMenuAtencionClientes() {
                 abonarPrestamo();
                 break;
             case 5:
-                mostrarReportePrestamos();
+                mostrarReportePrestamos(DBManager);
                 break;
             case 6:
                 return;
@@ -76,7 +76,10 @@ void abonarPrestamo() {
     // Implementación de la lógica de abono a préstamo va aquí
 }
 
-void mostrarReportePrestamos() {
-    cout << "Función para mostrar reporte de préstamos.\n";
-    // Implementación de la lógica de reporte de préstamos va aquí
+void mostrarReportePrestamos(DBManager& DBmanager) {
+    int client_ID;
+    std::cout << "Ingrese el ID del cliente: ";
+    std::cin >> client_ID;
+
+    DBmanager.loanReport(client_ID);
 }

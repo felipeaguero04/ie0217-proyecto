@@ -6,6 +6,6 @@ void realizarDeposito(DBManager& DBmanager);
 void realizarRetiro(DBManager& DBmanager);
 void realizarTransferencia();
 void abonarPrestamo();
-void mostrarReportePrestamos();
+void mostrarReportePrestamos(DBManager& DBmanager);
 
 #endif // CLIENTMODE_HPP
