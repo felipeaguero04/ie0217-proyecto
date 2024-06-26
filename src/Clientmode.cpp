@@ -1,9 +1,9 @@
 #include <iostream>
 #include "Clientmode.hpp"
-
 using namespace std;
 
 void mostrarMenuAtencionClientes() {
+    DBManager DBManager;
     int opcion;
     do {
         cout << "------------------------------------------------" << endl;
@@ -21,10 +21,10 @@ void mostrarMenuAtencionClientes() {
 
         switch (opcion) {
             case 1:
-                realizarDeposito();
+                realizarDeposito(DBManager);
                 break;
             case 2:
-                realizarRetiro();
+                realizarRetiro(DBManager);
                 break;
             case 3:
                 realizarTransferencia();
@@ -44,14 +44,26 @@ void mostrarMenuAtencionClientes() {
     } while (opcion != 6);
 }
 
-void realizarDeposito() {
-    cout << "Función para realizar depósito.\n";
-    // Implementación de la lógica de depósito va aquí
-}
 
-void realizarRetiro() {
-    cout << "Función para realizar retiro.\n";
-    // Implementación de la lógica de retiro va aquí
+void realizarDeposito(DBManager& DBManager) {
+    int amount, curr, acc_ID;
+    std::cout << "Ingrese el monto a depositar: ";
+    std::cin >> amount;
+    std::cout << "Ingrese la moneda (1 para USD, 2 para CRC): ";
+    std::cin >> curr;
+    std::cout << "Ingrese el ID de la cuenta: ";
+    std::cin >> acc_ID;
+
+    DBManager.deposit(amount, curr, acc_ID);
+}
+void realizarRetiro(DBManager& DBManager) {
+    int amount, acc_ID;
+    std::cout << "Ingrese el monto a retirar: ";
+    std::cin >> amount;
+    std::cout << "Ingrese el ID de la cuenta: ";
+    std::cin >> acc_ID;
+
+    DBManager.withdrawal(amount, acc_ID);
 }
 
 void realizarTransferencia() {
