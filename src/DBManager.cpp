@@ -172,7 +172,7 @@ void DBManager::addAccount(int client, int curr, float rate){
     // LImpiar sstream
     ss.str("");
     // Crear directiva con los parametros
-    ss << "INSERT INTO ACCOUNTS (owner, balance, rate, currency) VALUES(" << client << ", 0, " << rate << ", '$');";
+       ss << "INSERT INTO ACCOUNTS (owner, balance, rate, currency) VALUES(" << client << ", 0, " << rate << ", '" << mon << "');";
     aux = ss.str();
     // Alocar memoria del nuevo char*
     char* extra = new char[aux.length() + 1];

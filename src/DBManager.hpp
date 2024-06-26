@@ -1,3 +1,5 @@
+#ifndef DBMANAGER_HPP
+#define DBMANAGER_HPP
 #include <iostream>
 #include <sqlite3.h>
 #include <cstring>
@@ -35,3 +37,4 @@ class DBManager{
         void addTransaction(int accountID2, int accoutnID1, unsigned long int amountTransaction, int typeTransaction, int loanID);
         void addLoan(int client_ID, int amount, float rate, int payments, int type, int curr);
 };
+#endif // DBMANAGER_HPP
