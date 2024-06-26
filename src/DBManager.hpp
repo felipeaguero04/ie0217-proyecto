@@ -80,7 +80,7 @@ class DBManager{
          * 
          * @param ID ID del cliente que se desea revisar si existe en la base de datos del banco.
          */
-        void checkClientID(int ID);
+        int checkClientID(int ID);
 
         /**
          * @brief Agregar un cliente a la base de datos.
