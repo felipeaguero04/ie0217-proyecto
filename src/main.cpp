@@ -15,6 +15,7 @@ int main(){
     DBManager DBManager;
     DBManager.addClient(305510245, "Luis", "Felipe");
     DBManager.addClient(208190783, "Ismael", "Jimenez");
+    DBManager.addAccount(208190783, 2, 0);
     DBManager.addAccount(305510245, 2, 0);
     DBManager.addLoan(305510245, 400000, 0.02, 20, 1, 2);
     DBManager.addLoan(305510245, 400000, 0.02, 20, 2, 2);
@@ -43,10 +44,10 @@ int main(){
                 getGeneralLoanInfo();
                 break;
             case CLIENTS:
-                cout << "Ingrese el ID del cliente" << endl;
+                cout << "Ingrese el ID del cliente: " << endl;
                 cin >> clientChek;
                 if (DBManager.checkClientID(clientChek) == 1){
-                    mostrarMenuAtencionClientes();
+                    mostrarMenuAtencionClientes(&DBManager, clientChek);
                 } else {
                     continue;
                 }

@@ -1,9 +1,9 @@
 #include <iostream>
 #include "Clientmode.hpp"
+#include "InputValidator.hpp"
 using namespace std;
 
-void mostrarMenuAtencionClientes() {
-    DBManager DBManager;
+void mostrarMenuAtencionClientes(DBManager* dbManager, const int& clientID) {
     int opcion;
     do {
         cout << "------------------------------------------------" << endl;
@@ -17,14 +17,21 @@ void mostrarMenuAtencionClientes() {
         cout << "\t5. Mostrar Reporte de Préstamos\n";
         cout << "\t6. Volver al Menú Principal\n";
         cout << "Seleccione una opción: ";
-        cin >> opcion;
+
+        try {
+            InputValidator::menusValidatedInput(opcion);
+        } 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            continue; 
+        }
 
         switch (opcion) {
             case 1:
-                realizarDeposito(DBManager);
+                realizarDeposito(dbManager);
                 break;
             case 2:
-                realizarRetiro(DBManager);
+                realizarRetiro(dbManager);
                 break;
             case 3:
                 realizarTransferencia();
@@ -33,37 +40,55 @@ void mostrarMenuAtencionClientes() {
                 abonarPrestamo();
                 break;
             case 5:
-                mostrarReportePrestamos(DBManager);
+                mostrarReportePrestamos(dbManager, clientID);
                 break;
             case 6:
                 return;
             default:
-                cout << "Opción no válida. Intente de nuevo.\n";
+                cout << "Opción no válida. Por favor, seleccione una opción del 1 al 6. Inténtelo de nuevo." << endl;
                 break;
         }
     } while (opcion != 6);
 }
 
 
-void realizarDeposito(DBManager& DBManager) {
-    int amount, curr, acc_ID;
+void realizarDeposito(DBManager* dbManager) {
+    int curr, acc_ID;
+    unsigned long int amount;
     std::cout << "Ingrese el monto a depositar: ";
-    std::cin >> amount;
+    // Solicita al usuario ingresar el monto del préstamo.                
+    try {
+        InputValidator::amountValidatedInput(amount);
+    } 
+    // El catch agarra el error 
+    catch (const invalid_argument& e) {
+        cout << e.what() << endl;
+    }
+
     std::cout << "Ingrese la moneda (1 para USD, 2 para CRC): ";
-    std::cin >> curr;
+    // Solicita al usuario seleccionar el tipo de moneda.
+    try {
+        InputValidator::menusValidatedInput(curr);
+    } 
+    // El catch agarra el error 
+    catch (const invalid_argument& e) {
+        cout << e.what() << endl;
+        // Para que vuelva al menu a peir la opcion al usuario
+    }
+
     std::cout << "Ingrese el ID de la cuenta: ";
     std::cin >> acc_ID;
 
-    DBManager.deposit(amount, curr, acc_ID);
+    dbManager->deposit(amount, curr, acc_ID);
 }
-void realizarRetiro(DBManager& DBManager) {
+void realizarRetiro(DBManager* dbManager) {
     int amount, acc_ID;
     std::cout << "Ingrese el monto a retirar: ";
     std::cin >> amount;
     std::cout << "Ingrese el ID de la cuenta: ";
     std::cin >> acc_ID;
 
-    DBManager.withdrawal(amount, acc_ID);
+    dbManager->withdrawal(amount, acc_ID);
 }
 
 void realizarTransferencia() {
@@ -76,10 +101,6 @@ void abonarPrestamo() {
     // Implementación de la lógica de abono a préstamo va aquí
 }
 
-void mostrarReportePrestamos(DBManager& DBmanager) {
-    int client_ID;
-    std::cout << "Ingrese el ID del cliente: ";
-    std::cin >> client_ID;
-
-    DBmanager.loanReport(client_ID);
+void mostrarReportePrestamos(DBManager* dbManager, const int& clientID) {
+    dbManager->loanReport(clientID);
 }
