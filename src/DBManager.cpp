@@ -158,57 +158,64 @@ void DBManager::addClient(int idClient, std::string firstName, std::string lastN
     }
 };
 
-void DBManager::addAccount(int client, int curr, float rate){
-    // Verificar si ya hay dos cuentas
-    // Crear un string con los parametros ingresados
+
+void DBManager::addAccount(int client, int curr, float rate) {
     std::stringstream ss;
-    string aux;
-    char mon;
+    std::string aux;
+    std::string mon;
 
-    // Determinar el caracter de la moneda
-    if (curr == 1) mon = '$';
-    else if (curr == 2) mon = '₡';
+    // Determinar el carácter de la moneda
+    if (curr == 1) mon = "$";
+    else if (curr == 2) mon = "₡";
+    else {
+        std::cerr << "Moneda no válida. Usa 1 para USD y 2 para CRC." << std::endl;
+        return;
+    }
 
-    // LImpiar sstream
+    // Limpiar stringstream
     ss.str("");
-    // Crear directiva con los parametros
-       ss << "INSERT INTO ACCOUNTS (owner, balance, rate, currency) VALUES(" << client << ", 0, " << rate << ", '" << mon << "');";
+    ss.clear();
+
+    // Crear directiva con los parámetros
+    ss << "INSERT INTO ACCOUNTS (owner, balance, rate, currency) VALUES(" << client << ", 0, " << rate << ", '" << mon << "');";
     aux = ss.str();
-    // Alocar memoria del nuevo char*
-    char* extra = new char[aux.length() + 1];
-    // EScribir en el nuevo char*
-    strcpy(extra, aux.c_str());
-    // Asignar el string creado a la directiva SQL
-    sql = extra;
+    sql = aux.c_str();
+
     // Ejecutar la directiva
-    rc = sqlite3_exec(db, sql, callback, 0, &errMsg);
+    rc = sqlite3_exec(db, sql, nullptr, nullptr, &errMsg);
     if (rc != SQLITE_OK) {
-        cerr << "SQL error: " << errMsg << endl;
+        std::cerr << "SQL error: " << errMsg << std::endl;
         sqlite3_free(errMsg);
     } else {
-        cout << "Cuenta creada exitosamente!" << endl;
-        delete extra; // Liberar la memoria
+        std::cout << "Cuenta creada exitosamente!" << std::endl;
     }
-}
+};
 
-void DBManager::deposit(int amount, int curr, int acc_ID){
-    stringstream ss;
-    string aux;
-    char mon;
+void DBManager::deposit(int amount, int curr, int acc_ID) {
+    std::stringstream ss;
+    std::string aux;
+    std::string mon;
+
     // Determinar el símbolo de la moneda
-    if (curr == 1) mon = '$';
-    else if (curr == 2) mon = '₡';
+    if (curr == 1) mon = "$";
+    else if (curr == 2) mon = "₡";
+    else {
+        std::cerr << "Moneda no válida. Usa 1 para USD y 2 para CRC." << std::endl;
+        return;
+    }
 
     // Consulta SELECT para obtener el balance actual
+    ss.str("");
+    ss.clear();
     ss << "SELECT balance FROM ACCOUNTS WHERE account_ID = " << acc_ID << " AND currency = '" << mon << "';";
     aux = ss.str();
-    sql= aux.c_str();
+    sql = aux.c_str();
 
     // Preparar statement SELECT
-    sqlite3_stmt *stmt;
+    sqlite3_stmt* stmt;
     int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
-        cerr << "SQL Error: " << errMsg << endl;
+        std::cerr << "SQL Error: " << sqlite3_errmsg(db) << std::endl;
         return;
     }
 
@@ -216,33 +223,32 @@ void DBManager::deposit(int amount, int curr, int acc_ID){
     rc = sqlite3_step(stmt);
     if (rc == SQLITE_ROW) {
         double bal = sqlite3_column_double(stmt, 0);
-        cout << "Balance actual: " << bal << endl;
+        std::cout << "Balance actual: " << bal << std::endl;
 
         // Formar y ejecutar consulta UPDATE
-        ss.str(""); // Limpiar stringstream
+        ss.str("");
+        ss.clear();
         ss << "UPDATE ACCOUNTS SET balance = " << (bal + amount)
-           << " WHERE account_ID = " << acc_ID << ";";
+           << " WHERE account_ID = " << acc_ID << " AND currency = '" << mon << "';";
         aux = ss.str();
         sql = aux.c_str();
 
         // Ejecutar consulta UPDATE
         rc = sqlite3_exec(db, sql, nullptr, nullptr, &errMsg);
         if (rc != SQLITE_OK) {
-            std::cerr << "SQL Error: " << errMsg << endl;
+            std::cerr << "SQL Error: " << errMsg << std::endl;
             sqlite3_free(errMsg);
-            sqlite3_finalize(stmt); // Finalizar statement SELECT
+            sqlite3_finalize(stmt);
             return;
         } else {
-            cout << "Balance actualizado exitosamente!" << endl;
+            std::cout << "Balance actualizado exitosamente!" << std::endl;
         }
 
-        // Finalizar statement SELECT
         sqlite3_finalize(stmt);
     }
-
     // REgistrar transaccion
     addTransaction(acc_ID, acc_ID, amount, 1, -1);
-}
+};
 
 void DBManager::withdrawal(int amount, int acc_ID){
     stringstream ss;
