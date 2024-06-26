@@ -8,6 +8,7 @@ BIN_DIR = bin
 SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.cpp=$(BIN_DIR)/%.exe)
 EXECUTABLE = $(BIN_DIR)/banksys.exe
+DB_FILE = banksys.db
 
 all: $(EXECUTABLE)
 	./$(EXECUTABLE)
@@ -23,3 +24,4 @@ doxygen:
 
 clean:
 	rm $(BIN_DIR)/*.exe
+	rm -f $(BIN_DIR)/*.exe $(EXECUTABLE) $(DB_FILE)
