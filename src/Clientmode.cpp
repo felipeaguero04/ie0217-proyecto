@@ -55,25 +55,33 @@ void mostrarMenuAtencionClientes(DBManager* dbManager, const int& clientID) {
 void realizarDeposito(DBManager* dbManager) {
     int curr, acc_ID;
     unsigned long int amount;
-    std::cout << "Ingrese el monto a depositar: ";
-    // Solicita al usuario ingresar el monto del préstamo.                
-    try {
-        InputValidator::amountValidatedInput(amount);
-    } 
-    // El catch agarra el error 
-    catch (const invalid_argument& e) {
-        cout << e.what() << endl;
+    while (true){
+        std::cout << "Ingrese el monto a depositar: ";
+        // Solicita al usuario ingresar el monto del préstamo.                
+        try {
+            InputValidator::amountValidatedInput(amount);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            continue;
+        }
+        break;
     }
 
-    std::cout << "Ingrese la moneda (1 para USD, 2 para CRC): ";
-    // Solicita al usuario seleccionar el tipo de moneda.
-    try {
-        InputValidator::menusValidatedInput(curr);
-    } 
-    // El catch agarra el error 
-    catch (const invalid_argument& e) {
-        cout << e.what() << endl;
-        // Para que vuelva al menu a peir la opcion al usuario
+    while (true){
+        std::cout << "Ingrese la moneda (1 para USD, 2 para CRC): ";
+        // Solicita al usuario seleccionar el tipo de moneda.
+        try {
+            InputValidator::typeMoneyInput(curr);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            // Para que vuelva al menu a peir la opcion al usuario
+            continue;
+        }
+        break;
     }
 
     std::cout << "Ingrese el ID de la cuenta: ";
@@ -81,10 +89,24 @@ void realizarDeposito(DBManager* dbManager) {
 
     dbManager->deposit(amount, curr, acc_ID);
 }
+
 void realizarRetiro(DBManager* dbManager) {
-    int amount, acc_ID;
-    std::cout << "Ingrese el monto a retirar: ";
-    std::cin >> amount;
+    int acc_ID;
+    unsigned long int amount;
+    while (true){
+        std::cout << "Ingrese el monto a retirar: ";
+        // Solicita al usuario ingresar el monto del préstamo.                
+        try {
+            InputValidator::amountValidatedInput(amount);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            continue;
+        }
+        break;
+    }
+
     std::cout << "Ingrese el ID de la cuenta: ";
     std::cin >> acc_ID;
 

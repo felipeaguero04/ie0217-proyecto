@@ -17,6 +17,8 @@ public:
     static bool paymentsValidatedInput(int& input);
     // Excepcion para que se ingrese un rango permitido segun el tipo de prestamo
     static bool rateValidatedInput(float& input, int loanType);
+    // Excepcion para que se ingrese un tipo de moneda de acuerdo a la logica
+    static bool typeMoneyInput(int& input);
     
 };
 

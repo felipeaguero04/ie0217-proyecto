@@ -1,5 +1,4 @@
 #include "InputValidator.hpp"
-
 bool InputValidator::menusValidatedInput(int& input) {
     std::cin >> input;
     // Revisa si hay errores, esto sucede si cin.good es false, es una flag de error
@@ -13,7 +12,6 @@ bool InputValidator::menusValidatedInput(int& input) {
     }
     return true;
 }
-
 
 bool InputValidator::amountValidatedInput(unsigned long int& input) {
     // Que la entrada por el usuario sea un string
@@ -118,6 +116,29 @@ bool InputValidator::rateValidatedInput(float& input, int loanType) {
     // Si entra a un case y es true significa que el rango es correcto para el tipo de prestamo
     if (!validRange) {
         throw std::invalid_argument("Error: Tasa de interés fuera del rango permitido.");
+    }
+
+    return true;
+}
+
+bool InputValidator::typeMoneyInput(int& input) {
+    std::cin >> input;
+
+    // Primero verificamos si hubo un error de entrada
+    if (!std::cin.good()) {
+        // Se resetea el flag de error
+        std::cin.clear();
+        // Descartamos los caracteres que haya en el buffer de entrada
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        // Lanza un error para ser capturado por el bloque try-catch
+        throw std::invalid_argument("Error: Entrada no válida. Introduzca un número.");
+        return false;
+    }
+
+    // Ahora, aseguramos que el valor es 1 o 2
+    if (input != 1 && input != 2) {
+        throw std::invalid_argument("Error: Entrada no válida. Por favor, ingrese un 1 o 2 como lo solicita el menú.");
+        return false;
     }
 
     return true;
