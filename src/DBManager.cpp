@@ -392,6 +392,8 @@ void DBManager::transference(int amount, int acc_ID, int dest_acc_ID){
             sqlite3_free(errMsg);
             sqlite3_finalize(stmt); // Finalizar statement SELECT
             return;
+        } else {
+            cout << "Transferencia realizada exitosamente!" << endl;
         }
 
         // Finalizar statement SELECT
