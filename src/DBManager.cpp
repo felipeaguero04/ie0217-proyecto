@@ -325,7 +325,81 @@ void DBManager::withdrawal(int amount, int acc_ID){
 };
 
 void DBManager::transference(int amount, int acc_ID, int dest_acc_ID){
+    stringstream ss;
+    string aux;
+    int bal;
+    ss << "SELECT balance FROM ACCOUNTS WHERE account_ID = " << acc_ID << ";";
+    aux = ss.str();
+    sql = aux.c_str();
 
+    // Preparar statement SELECT
+    sqlite3_stmt *stmt;
+    int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+        cerr << "SQL Error: " << sqlite3_errmsg(db) << endl;
+        return;
+    }
+
+    // Ejecutar consulta SELECT
+    rc = sqlite3_step(stmt);
+    if (rc == SQLITE_ROW) {
+        bal = sqlite3_column_double(stmt, 0);
+        
+        ss.str(""); // Limpiar stringstream
+        ss << "UPDATE ACCOUNTS SET balance = " << (bal - amount)
+           << " WHERE account_ID = " << acc_ID << ";";
+        aux = ss.str();
+        sql = aux.c_str();
+
+        // Ejecutar consulta UPDATE
+        rc = sqlite3_exec(db, sql, nullptr, nullptr, &errMsg);
+        if (rc != SQLITE_OK) {
+            std::cerr << "SQL Error: " << errMsg << std::endl;
+            sqlite3_free(errMsg);
+            sqlite3_finalize(stmt); // Finalizar statement SELECT
+            return;
+        }
+
+        // Finalizar statement SELECT
+        sqlite3_finalize(stmt);
+    }
+
+    ss.str("");
+    ss << "SELECT balance FROM ACCOUNTS WHERE account_ID = " << dest_acc_ID << ";";
+    aux = ss.str();
+    sql = aux.c_str();
+    rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+        cerr << "SQL Error: " << sqlite3_errmsg(db) << endl;
+        return;
+    }
+
+    // Ejecutar consulta SELECT
+    rc = sqlite3_step(stmt);
+    if (rc == SQLITE_ROW) {
+        bal = sqlite3_column_double(stmt, 0);
+        
+        ss.str(""); // Limpiar stringstream
+        ss << "UPDATE ACCOUNTS SET balance = " << (bal + amount)
+           << " WHERE account_ID = " << dest_acc_ID << ";";
+        aux = ss.str();
+        sql = aux.c_str();
+
+        // Ejecutar consulta UPDATE
+        rc = sqlite3_exec(db, sql, nullptr, nullptr, &errMsg);
+        if (rc != SQLITE_OK) {
+            cerr << "SQL Error: " << errMsg << endl;
+            sqlite3_free(errMsg);
+            sqlite3_finalize(stmt); // Finalizar statement SELECT
+            return;
+        }
+
+        // Finalizar statement SELECT
+        sqlite3_finalize(stmt);
+    }
+
+    // Registrar la transaccion
+    addTransaction(dest_acc_ID, acc_ID, amount, 3, -1);
 };
 
 void DBManager::loanPayment(int amount, int acc_ID, int loan_ID){
