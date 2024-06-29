@@ -317,6 +317,13 @@ void DBManager::withdrawal(int amount, int acc_ID){
         double bal = sqlite3_column_double(stmt, 0);
         cout << "Balance actual: " << bal << endl;
 
+        // Verificar si el balance es suficiente para el retiro
+        if (bal < amount) {
+            cerr << "Error: Fondos insuficientes para realizar el retiro." << endl;
+            sqlite3_finalize(stmt); // Finalizar statement SELECT
+            return;
+        }
+
         // Formar y ejecutar consulta UPDATE
         ss.str(""); // Limpiar stringstream
         ss << "UPDATE ACCOUNTS SET balance = " << (bal - amount)
@@ -362,6 +369,13 @@ void DBManager::transference(int amount, int acc_ID, int dest_acc_ID){
     rc = sqlite3_step(stmt);
     if (rc == SQLITE_ROW) {
         bal = sqlite3_column_double(stmt, 0);
+
+        // Verificar si el balance es suficiente para la transferencia
+        if (bal < amount) {
+            cerr << "Error: Fondos insuficientes para realizar la transferencia." << endl;
+            sqlite3_finalize(stmt); // Finalizar statement SELECT
+            return;
+        }
         
         ss.str(""); // Limpiar stringstream
         ss << "UPDATE ACCOUNTS SET balance = " << (bal - amount)
