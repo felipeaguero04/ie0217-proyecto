@@ -236,10 +236,11 @@ void DBManager::addAccount(int client, int curr, float rate) {
 };
 
 void DBManager::deposit(int amount, int curr, int acc_ID) {
-    std::stringstream ss;
-    std::string aux;
-    std::string mon;
-
+    stringstream ss;
+    string aux;
+    string mon;
+    string colones = "₡";
+    const unsigned char* acccurr;
     // Determinar el símbolo de la moneda
     if (curr == 1) mon = "$";
     else if (curr == 2) mon = "₡";
@@ -251,7 +252,7 @@ void DBManager::deposit(int amount, int curr, int acc_ID) {
     // Consulta SELECT para obtener el balance actual
     ss.str("");
     ss.clear();
-    ss << "SELECT balance FROM ACCOUNTS WHERE account_ID = " << acc_ID << " AND currency = '" << mon << "';";
+    ss << "SELECT balance, currency FROM ACCOUNTS WHERE account_ID = " << acc_ID << ";";
     aux = ss.str();
     sql = aux.c_str();
 
@@ -267,15 +268,29 @@ void DBManager::deposit(int amount, int curr, int acc_ID) {
     rc = sqlite3_step(stmt);
     if (rc == SQLITE_ROW) {
         double bal = sqlite3_column_double(stmt, 0);
-        std::cout << "Balance actual: " << bal << std::endl;
-
-        // Formar y ejecutar consulta UPDATE
-        ss.str("");
-        ss.clear();
-        ss << "UPDATE ACCOUNTS SET balance = " << (bal + amount)
-           << " WHERE account_ID = " << acc_ID << " AND currency = '" << mon << "';";
-        aux = ss.str();
-        sql = aux.c_str();
+        acccurr = sqlite3_column_text(stmt, 1);
+        if (*((const char*) acccurr) == '$' && curr == 2) {
+            // Formar y ejecutar consulta UPDATE
+            ss.str(""); // Limpiar stringstream
+            ss << "UPDATE ACCOUNTS SET balance = " << (bal + amount/EXCHANGE)
+               << " WHERE account_ID = " << acc_ID << ";";
+            aux = ss.str();
+            sql = aux.c_str();
+        } else if (*((const char*)acccurr) == *(colones.c_str()) && curr == 1) {
+            // Formar y ejecutar consulta UPDATE
+            ss.str(""); // Limpiar stringstream
+            ss << "UPDATE ACCOUNTS SET balance = " << (bal + amount*EXCHANGE)
+               << " WHERE account_ID = " << acc_ID << ";";
+            aux = ss.str();
+            sql = aux.c_str();
+        } else {
+            // Formar y ejecutar consulta UPDATE
+            ss.str(""); // Limpiar stringstream
+            ss << "UPDATE ACCOUNTS SET balance = " << (bal + amount)
+               << " WHERE account_ID = " << acc_ID << ";";
+            aux = ss.str();
+            sql = aux.c_str();
+        }
 
         // Ejecutar consulta UPDATE
         rc = sqlite3_exec(db, sql, nullptr, nullptr, &errMsg);

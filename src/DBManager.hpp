@@ -16,6 +16,8 @@
 #include <sstream>
 #include <fstream>
 
+#define EXCHANGE 521
+
 using namespace std;
 
 /**
