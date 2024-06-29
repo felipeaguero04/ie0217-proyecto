@@ -34,10 +34,10 @@ void mostrarMenuAtencionClientes(DBManager* dbManager, const int& clientID) {
                 realizarRetiro(dbManager);
                 break;
             case 3:
-                realizarTransferencia();
+                realizarTransferencia(dbManager);
                 break;
             case 4:
-                abonarPrestamo();
+                abonarPrestamo(dbManager);
                 break;
             case 5:
                 mostrarReportePrestamos(dbManager, clientID);
@@ -113,16 +113,29 @@ void realizarRetiro(DBManager* dbManager) {
     dbManager->withdrawal(amount, acc_ID);
 }
 
-void realizarTransferencia() {
-    cout << "Función para realizar transferencia.\n";
-    // Implementación de la lógica de transferencia va aquí
-}
+void realizarTransferencia(DBManager* dbManager) {
+    int amount, acc_ID, dest_acc_ID;
+    std::cout << "Ingrese el monto a transferir: ";
+    std::cin >> amount;
+    std::cout << "Ingrese el ID de la cuenta origen: ";
+    std::cin >> acc_ID;
+    std::cout << "Ingrese el ID de la cuenta destino: ";
+    std::cin >> dest_acc_ID;
 
-void abonarPrestamo() {
-    cout << "Función para abonar a préstamo.\n";
-    // Implementación de la lógica de abono a préstamo va aquí
-}
+    dbManager->transference(amount, acc_ID, dest_acc_ID);
+};
 
+void abonarPrestamo(DBManager* dbManager) {
+    int amount, acc_ID, loan_ID;
+    std::cout << "Ingrese el monto a abonar: ";
+    std::cin >> amount;
+    std::cout << "Ingrese el ID de la cuenta: ";
+    std::cin >> acc_ID;
+    std::cout << "Ingrese el ID del préstamo: ";
+    std::cin >> loan_ID;
+
+    dbManager->loanPayment(amount, acc_ID, loan_ID);
+};
 void mostrarReportePrestamos(DBManager* dbManager, const int& clientID) {
     dbManager->loanReport(clientID);
 }

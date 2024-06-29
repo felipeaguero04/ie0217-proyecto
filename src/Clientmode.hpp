@@ -4,8 +4,8 @@
 void mostrarMenuAtencionClientes(DBManager* dbManager, const int& clientID);
 void realizarDeposito(DBManager* dbManager);
 void realizarRetiro(DBManager* dbManager);
-void realizarTransferencia();
-void abonarPrestamo();
+void realizarTransferencia(DBManager* dbManager);
+void abonarPrestamo(DBManager* dbManager);
 void mostrarReportePrestamos(DBManager* dbManager, const int& clientID);
 
 #endif // CLIENTMODE_HPP
