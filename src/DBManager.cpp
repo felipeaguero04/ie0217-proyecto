@@ -7,15 +7,33 @@ int DBManager::callback(void* data, int argc, char** argv, char** azColName){
     return 0;
 }
 
+
 int DBManager::getLoanReport(void* data, int argc, char** argv, char** azColName) {
     std::ofstream* output_file = static_cast<std::ofstream*>(data);
 
-    if (output_file->is_open()) {
-        // Imprimir todos los outputs
+   if (output_file->is_open()) {
+        *output_file << "Reporte de Préstamo\n";
+        *output_file << "===================\n";
         for (int i = 0; i < argc; i++) {
-            *output_file << azColName[i] << " = " << (argv[i] ? argv[i] : "NULL") << std::endl;
+            if (std::string(azColName[i]) == "client_ID") {
+                *output_file << "ID del Cliente: " << (argv[i] ? argv[i] : "NULL") << "\n";
+            } else if (std::string(azColName[i]) == "first_name") {
+                *output_file << "Nombre: " << (argv[i] ? argv[i] : "NULL") << "\n";
+            } else if (std::string(azColName[i]) == "last_name") {
+                *output_file << "Apellido: " << (argv[i] ? argv[i] : "NULL") << "\n";
+            } else if (std::string(azColName[i]) == "loan_ID") {
+                *output_file << "Préstamo ID: " << (argv[i] ? argv[i] : "NULL") << "\n";
+            } else if (std::string(azColName[i]) == "amount") {
+                *output_file << "Monto del Préstamo: " << (argv[i] ? argv[i] : "NULL") << "\n";
+            } else if (std::string(azColName[i]) == "interest") {
+                *output_file << "Intereses: " << (argv[i] ? argv[i] : "NULL") << "\n";
+            } else if (std::string(azColName[i]) == "made_payments") {
+                *output_file << "Cuotas Realizadas: " << (argv[i] ? argv[i] : "NULL") << "\n";
+            } else if (std::string(azColName[i]) == "paid_amount") {
+                *output_file << "Monto Pagado: " << (argv[i] ? argv[i] : "NULL") << "\n";
+            }
         }
-        *output_file << "------------------------" << std::endl; // Separador entre registros
+        *output_file << "------------------------\n"; // Separador entre registros
     } else {
         std::cerr << "Error al escribir en el archivo." << std::endl;
     }
@@ -490,7 +508,10 @@ void DBManager::loanPayment(int amount, int acc_ID, int loan_ID){
 void DBManager::loanReport(int client_ID) {
     std::stringstream ss;
     std::string aux;
-    ss << "SELECT * FROM LOANS WHERE client_ID = " << client_ID << ";";
+    ss << "SELECT C.client_ID, C.first_name, C.last_name, L.loan_ID, L.amount, L.interest, L.made_payments, L.paid_amount "
+       << "FROM CLIENTS C "
+       << "JOIN LOANS L ON C.client_ID = L.client_ID "
+       << "WHERE C.client_ID = " << client_ID << ";";
     aux = ss.str();
     sql = aux.c_str();
 
@@ -501,7 +522,7 @@ void DBManager::loanReport(int client_ID) {
         return;
     }
 
-    rc = sqlite3_exec(db, sql, getLoanReport, &output_file, &errMsg);
+    int rc = sqlite3_exec(db, sql, getLoanReport, &output_file, &errMsg);
     if (rc != SQLITE_OK) {
         std::cerr << "SQL error: " << errMsg << std::endl;
         sqlite3_free(errMsg);
@@ -511,7 +532,6 @@ void DBManager::loanReport(int client_ID) {
 
     output_file.close(); // Cerrar el archivo
 };
-
 void DBManager::addTransaction(int accountID2, int accountID1, unsigned long int amountTransaction, int typeTransaction, int loanID){
     std::stringstream ss;
     string aux, typestr;
