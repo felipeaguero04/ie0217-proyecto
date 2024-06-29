@@ -408,7 +408,6 @@ void DBManager::transference(int amount, int acc_ID, int dest_acc_ID){
         destcurr = sqlite3_column_text(stmt, 1);
 
         if(*(destcurr) == '$' && *(sourcecurr) != '$'){
-            cout << "COLONES A DOLARES" << endl;
             ss.str(""); // Limpiar stringstream
             ss << "UPDATE ACCOUNTS SET balance = " << (destbal + amount*EXCHANGE)
                << " WHERE account_ID = " << dest_acc_ID << ";"
@@ -418,7 +417,6 @@ void DBManager::transference(int amount, int acc_ID, int dest_acc_ID){
             sql = aux.c_str();
 
         } else if (*(destcurr) != '$' && *(sourcecurr) == '$'){
-            cout << "DOLARES A COLONES" << endl;
             ss.str(""); // Limpiar stringstream
             ss << "UPDATE ACCOUNTS SET balance = " << (destbal + amount/EXCHANGE)
                << " WHERE account_ID = " << dest_acc_ID << ";"
@@ -428,7 +426,6 @@ void DBManager::transference(int amount, int acc_ID, int dest_acc_ID){
             sql = aux.c_str();
             
         } else if (*destcurr == *sourcecurr){
-            cout << "IGUALES" << endl;
             ss.str(""); // Limpiar stringstream
             ss << "UPDATE ACCOUNTS SET balance = " << (destbal + amount)
                << " WHERE account_ID = " << dest_acc_ID << ";"
@@ -459,15 +456,35 @@ void DBManager::transference(int amount, int acc_ID, int dest_acc_ID){
 void DBManager::loanPayment(int amount, int acc_ID, int loan_ID){
     stringstream ss;
     string aux;
-    double bal;
+    double accountbal;
     int made_payments, paid_amount;
+    const unsigned char* loancurr;
+    const unsigned char* acccurr;
 
-    ss << "SELECT made_payments, paid_amount FROM LOANS WHERE loan_ID = " << loan_ID << ";";
+    ss.str(""); // Limpiar stringstream
+    ss << "SELECT balance, currency FROM ACCOUNTS WHERE account_ID = " << acc_ID << ";";
+    aux = ss.str();
+    sql = aux.c_str();
+
+    sqlite3_stmt *stmt;
+    rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+        cerr << "SQL Error: " << sqlite3_errmsg(db) << endl;
+        return;
+    }
+
+    rc = sqlite3_step(stmt);
+    if (rc == SQLITE_ROW) {
+        accountbal = sqlite3_column_double(stmt, 0);
+        acccurr = sqlite3_column_text(stmt, 1);
+    }
+
+    ss.str("");
+    ss << "SELECT made_payments, paid_amount, currency FROM LOANS WHERE loan_ID = " << loan_ID << ";";
     aux = ss.str();
     sql = aux.c_str();
 
     // Preparar statement SELECT
-    sqlite3_stmt *stmt;
     int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
         cerr << "SQL Error: " << sqlite3_errmsg(db) << endl;
@@ -479,14 +496,45 @@ void DBManager::loanPayment(int amount, int acc_ID, int loan_ID){
     if (rc == SQLITE_ROW) {
         made_payments = sqlite3_column_int(stmt, 0);
         paid_amount = sqlite3_column_int(stmt, 1);
-        
-        ss.str(""); // Limpiar stringstream
-        ss << "UPDATE LOANS SET made_payments = " << (made_payments + 1)
-           << ", paid_amount = " << (paid_amount + amount)
-           << " WHERE loan_ID = " << loan_ID << ";";
-        aux = ss.str();
-        sql = aux.c_str();
+        loancurr = sqlite3_column_text(stmt, 2);
 
+        cout << accountbal << endl;
+
+        if (*(loancurr) == '$' && *(acccurr) != '$'){
+            cout << "COLONES A DOLARES" << endl;
+            ss.str(""); // Limpiar stringstream
+            ss << "UPDATE LOANS SET made_payments = " << (made_payments + 1)
+               << ", paid_amount = " << (paid_amount + amount/EXCHANGE)
+               << " WHERE loan_ID = " << loan_ID << ";"
+               << "UPDATE ACCOUNTS SET balance = " << (accountbal - amount)
+               << " WHERE account_ID = " << acc_ID << ";";
+            aux = ss.str();
+            sql = aux.c_str();
+
+        } else if (*(loancurr) != '$' && *(acccurr) == '$'){
+            cout << "DOLARES A DOLARES" << endl;
+            ss.str(""); // Limpiar stringstream
+            ss << "UPDATE LOANS SET made_payments = " << (made_payments + 1)
+               << ", paid_amount = " << (paid_amount + amount*EXCHANGE)
+               << " WHERE loan_ID = " << loan_ID << ";"
+               << "UPDATE ACCOUNTS SET balance = " << (accountbal - amount)
+               << " WHERE account_ID = " << acc_ID << ";";
+            aux = ss.str();
+            sql = aux.c_str();
+
+        } else if (*loancurr == *acccurr){
+            cout << "IGUALES" << endl;
+            ss.str(""); // Limpiar stringstream
+            ss << "UPDATE LOANS SET made_payments = " << (made_payments + 1)
+               << ", paid_amount = " << (paid_amount + amount)
+               << " WHERE loan_ID = " << loan_ID << ";"
+               << "UPDATE ACCOUNTS SET balance = " << (accountbal - amount)
+               << " WHERE account_ID = " << acc_ID << ";";
+            aux = ss.str();
+            sql = aux.c_str();
+        }
+
+    
         // Ejecutar consulta UPDATE
         rc = sqlite3_exec(db, sql, nullptr, nullptr, &errMsg);
         if (rc != SQLITE_OK) {
@@ -496,39 +544,6 @@ void DBManager::loanPayment(int amount, int acc_ID, int loan_ID){
             return;
         } else {
             std::cout << "Abono realizado exitosamente!" << std::endl;
-        }
-
-        // Finalizar statement SELECT
-        sqlite3_finalize(stmt);
-    }
-
-    ss.str(""); // Limpiar stringstream
-    ss << "SELECT balance FROM ACCOUNTS WHERE account_ID = " << acc_ID << ";";
-    aux = ss.str();
-    sql = aux.c_str();
-
-    rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
-    if (rc != SQLITE_OK) {
-        cerr << "SQL Error: " << sqlite3_errmsg(db) << endl;
-        return;
-    }
-
-    if (rc == SQLITE_ROW) {
-        bal = sqlite3_column_double(stmt, 0);
-        
-        ss.str(""); // Limpiar stringstream
-        ss << "UPDATE ACCOUNTS SET balance = " << (bal - amount)
-           << " WHERE account_ID = " << acc_ID << ";";
-        aux = ss.str();
-        sql = aux.c_str();
-
-        // Ejecutar consulta UPDATE
-        rc = sqlite3_exec(db, sql, nullptr, nullptr, &errMsg);
-        if (rc != SQLITE_OK) {
-            std::cerr << "SQL Error: " << errMsg << std::endl;
-            sqlite3_free(errMsg);
-            sqlite3_finalize(stmt); // Finalizar statement SELECT
-            return;
         }
 
         // Finalizar statement SELECT
