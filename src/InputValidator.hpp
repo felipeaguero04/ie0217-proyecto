@@ -1,7 +1,14 @@
 /**
  * @file InputValidator.hpp
+ * @author Jorge Meneses (j.menesesgarro@gmail.com), Ismael Jimenez (ijime31@gmail.com) and Luis Felipe Aguero (felipe.aguero04@gmail.com)
  * @brief Este archivo contiene la clase InputValidator con métodos estáticos para validar entradas del usuario.
+ * @version 1.0
+ * @date 2024-07-1
+ * 
+ * @copyright Copyright (c) 2024
+ * 
  */
+
 #ifndef INPUT_VALIDATOR_HPP
 #define INPUT_VALIDATOR_HPP
 

@@ -1,6 +1,12 @@
 /**
- * @file ClientMode.hpp
- * @brief Este archivo contiene las funciones para manejar operaciones bancarias de los clientes.
+ * @file Clientmode.hpp
+ * @author Jorge Meneses (j.menesesgarro@gmail.com), Ismael Jimenez (ijime31@gmail.com) and Luis Felipe Aguero (felipe.aguero04@gmail.com)
+ * @brief Header file para el modo de atencion al cliente.
+ * @version 1.0
+ * @date 2024-07-1
+ * 
+ * @copyright Copyright (c) 2024
+ * 
  */
 
 #ifndef CLIENTMODE_HPP

@@ -1,3 +1,14 @@
+/**
+ * @file Clientmode.cpp
+ * @author Jorge Meneses (j.menesesgarro@gmail.com), Ismael Jimenez (ijime31@gmail.com) and Luis Felipe Aguero (felipe.aguero04@gmail.com)
+ * @brief Definicion de funciones del modo de atencion al cleinte.
+ * @version 1.0
+ * @date 2024-07-1
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
+
 #include <iostream>
 #include "Clientmode.hpp"
 #include "InputValidator.hpp"

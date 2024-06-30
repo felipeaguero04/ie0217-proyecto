@@ -1,6 +1,6 @@
 /**
  * @file DBManager.hpp
- * @author Jorge Meneses (j.menesesgarro@gmail.com), Ismael Jimenez () and Luis Felipe Aguero ()
+ * @author Jorge Meneses (j.menesesgarro@gmail.com), Ismael Jimenez (ijime31@gmail.com) and Luis Felipe Aguero (felipe.aguero04@gmail.com)
  * @brief Clase encargada de manipular la base de datos bancaria
  * @version 1.0
  * @date 2024-07-1
@@ -8,6 +8,7 @@
  * @copyright Copyright (c) 2024
  * 
  */
+
 #ifndef DBMANAGER_HPP
 #define DBMANAGER_HPP
 #include <iostream>

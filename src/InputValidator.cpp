@@ -1,3 +1,14 @@
+/**
+ * @file InputValidator.cpp
+ * @author Jorge Meneses (j.menesesgarro@gmail.com), Ismael Jimenez (ijime31@gmail.com) and Luis Felipe Aguero (felipe.aguero04@gmail.com)
+ * @brief Definicion de los metodos de la clase InputValidator.
+ * @version 1.0
+ * @date 2024-07-1
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
+
 #include "InputValidator.hpp"
 bool InputValidator::menusValidatedInput(int& input) {
     std::cin >> input;

@@ -1,6 +1,6 @@
 /**
  * @file LoansInfoMode.hpp
- * @author Jorge Meneses (j.menesesgarro@gmail.com), Ismael Jimenez () and Luis Felipe Aguero ()
+ * @author Jorge Meneses (j.menesesgarro@gmail.com), Ismael Jimenez (ijime31@gmail.com) and Luis Felipe Aguero (felipe.aguero04@gmail.com)
  * @brief Modalidad de informacion general de prestamos
  * @version 1.0
  * @date 2024-07-1
@@ -8,6 +8,7 @@
  * @copyright Copyright (c) 2024
  * 
  */
+
 #ifndef LOANSINFOMODE_HPP
 #define LOANSINFOMODE_HPP
 

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_7edbmanager_31',['~DBManager',['../classDBManager.html#ae6d8cb78041c8ff0c5e77609ca512df0',1,'DBManager']]]
+  ['ynvalidationinput_58',['ynValidationInput',['../class_input_validator.html#a3e063de0717c9d1903a61afe623821ae',1,'InputValidator']]]
 ];

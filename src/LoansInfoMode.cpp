@@ -1,3 +1,14 @@
+/**
+ * @file LoansInfoMode.cpp
+ * @author Jorge Meneses (j.menesesgarro@gmail.com), Ismael Jimenez (ijime31@gmail.com) and Luis Felipe Aguero (felipe.aguero04@gmail.com)
+ * @brief Definicion de las funciones del modo de informacion de prestamos.
+ * @version 1.0
+ * @date 2024-07-1
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
+
 #include "LoansInfoMode.hpp"
 #include "InputValidator.hpp"
 #include <iostream>
