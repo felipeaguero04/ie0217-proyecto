@@ -84,8 +84,19 @@ void realizarDeposito(DBManager* dbManager) {
         break;
     }
 
-    std::cout << "Ingrese el ID de la cuenta: ";
-    std::cin >> acc_ID;
+    while (true){
+        std::cout << "Ingrese el ID de la cuenta: ";
+        // Solicita al usuario ingresar el monto del préstamo.                
+        try {
+            InputValidator::intInput(acc_ID);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            continue;
+        }
+        break;
+    }
 
     dbManager->deposit(amount, curr, acc_ID);
 }
@@ -107,35 +118,122 @@ void realizarRetiro(DBManager* dbManager) {
         break;
     }
 
-    std::cout << "Ingrese el ID de la cuenta: ";
-    std::cin >> acc_ID;
+    while (true){
+        std::cout << "Ingrese el ID de la cuenta: ";
+        // Solicita al usuario ingresar el monto del préstamo.                
+        try {
+            InputValidator::intInput(acc_ID);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            continue;
+        }
+        break;
+    }
 
     dbManager->withdrawal(amount, acc_ID);
 }
 
 void realizarTransferencia(DBManager* dbManager) {
-    int amount, acc_ID, dest_acc_ID;
-    std::cout << "Ingrese el monto a transferir: ";
-    std::cin >> amount;
-    std::cout << "Ingrese el ID de la cuenta origen: ";
-    std::cin >> acc_ID;
-    std::cout << "Ingrese el ID de la cuenta destino: ";
-    std::cin >> dest_acc_ID;
+    int acc_ID, dest_acc_ID;
+    unsigned long int amount;
+
+    while (true){
+        std::cout << "Ingrese el monto a transferir: ";
+        // Solicita al usuario ingresar el monto del préstamo.                
+        try {
+            InputValidator::amountValidatedInput(amount);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            continue;
+        }
+        break;
+    }
+
+    while (true){
+        std::cout << "Ingrese el ID de la cuenta origen: ";
+        // Solicita al usuario ingresar el monto del préstamo.                
+        try {
+            InputValidator::intInput(acc_ID);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            continue;
+        }
+        break;
+    }
+
+    while (true){
+        std::cout << "Ingrese el ID de la cuenta destino: ";
+        // Solicita al usuario ingresar el monto del préstamo.                
+        try {
+            InputValidator::intInput(dest_acc_ID);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            continue;
+        }
+        break;
+    }
 
     dbManager->transference(amount, acc_ID, dest_acc_ID);
 };
 
 void abonarPrestamo(DBManager* dbManager) {
-    int amount, acc_ID, loan_ID;
-    std::cout << "Ingrese el monto a abonar: ";
-    std::cin >> amount;
-    std::cout << "Ingrese el ID de la cuenta: ";
-    std::cin >> acc_ID;
-    std::cout << "Ingrese el ID del préstamo: ";
-    std::cin >> loan_ID;
+    int acc_ID, loan_ID;
+    unsigned long int amount;
+
+    while (true){
+        std::cout << "Ingrese el monto a abonar: ";
+        // Solicita al usuario ingresar el monto del préstamo.                
+        try {
+            InputValidator::amountValidatedInput(amount);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            continue;
+        }
+        break;
+    }
+
+
+    while (true){
+        std::cout << "Ingrese el ID de la cuenta: ";
+        // Solicita al usuario ingresar el monto del préstamo.                
+        try {
+            InputValidator::intInput(acc_ID);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            continue;
+        }
+        break;
+    }
+
+    while (true){
+        std::cout << "Ingrese el ID del préstamo: ";
+        // Solicita al usuario ingresar el monto del préstamo.                
+        try {
+            InputValidator::intInput(loan_ID);
+        } 
+        // El catch agarra el error 
+        catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            continue;
+        }
+        break;
+    }
 
     dbManager->loanPayment(amount, acc_ID, loan_ID);
 };
+
 void mostrarReportePrestamos(DBManager* dbManager, const int& clientID) {
     dbManager->loanReport(clientID);
 }
