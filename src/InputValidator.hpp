@@ -1,3 +1,7 @@
+/**
+ * @file InputValidator.hpp
+ * @brief Este archivo contiene la clase InputValidator con métodos estáticos para validar entradas del usuario.
+ */
 #ifndef INPUT_VALIDATOR_HPP
 #define INPUT_VALIDATOR_HPP
 
@@ -5,6 +9,10 @@
 #include <stdexcept>
 #include <limits>
 
+/**
+ * @class InputValidator
+ * @brief Clase que valida diferentes tipos de entradas del usuario.
+ */
 class InputValidator {
 public:
      /**
@@ -57,6 +65,13 @@ public:
      */
     static bool typeMoneyInput(int& input);
     
+    /**
+     * Valida la entrada del usuario para asegurarse de que sea un entero positivo.
+     * @param input Referencia al entero de entrada del usuario.
+     * @return Verdadero si la entrada es válida, de lo contrario, lanza una excepción.
+     * @throws std::invalid_argument si la entrada no es un entero positivo o si hay un error en la entrada.
+     */
+    static bool intInput(int& input);
 };
 
 #endif // INPUT_VALIDATOR_HPP

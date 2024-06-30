@@ -143,3 +143,16 @@ bool InputValidator::typeMoneyInput(int& input) {
 
     return true;
 }
+
+bool InputValidator::intInput(int& input) {
+    std::cin >> input;
+
+    // Verifica si la entrada es correcta y si es un entero positivo
+    if (!std::cin.good() || input <= 0) {
+        // Si hay un error o el número es negativo o cero, resetea el flag de error y limpia el buffer de entrada
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        throw std::invalid_argument("Error: Entrada no válida. Por favor, ingrese un número entero positivo dentro del rango de 0 a 2,147,483,647.");
+    }
+    return true;
+}
