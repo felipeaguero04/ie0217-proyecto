@@ -1,0 +1,289 @@
+\hypertarget{classDBManager}{}\doxysection{D\+B\+Manager Class Reference}
+\label{classDBManager}\index{DBManager@{DBManager}}
+
+
+Clase cuya instanciacion crea y manipula la base datos por medio de operaciones C\+R\+UD.  
+
+
+
+
+{\ttfamily \#include $<$D\+B\+Manager.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDBManager_afb4f09d26522754aab71b801716a8325}{D\+B\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Constructor de objetos tipo \mbox{\hyperlink{classDBManager}{D\+B\+Manager}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDBManager_ae6d8cb78041c8ff0c5e77609ca512df0}{$\sim$\+D\+B\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Destructor de objetos tipo \mbox{\hyperlink{classDBManager}{D\+B\+Manager}}. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classDBManager_aa6379af669495264ccfee8730eb670cd}{check\+Client\+ID}} (int ID)
+\begin{DoxyCompactList}\small\item\em Revision de existencia de un cliente especifico. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDBManager_a4f9a361572a47d688a4837fe6bc9d125}{get\+Accounts\+Info}} (int client\+ID)
+\begin{DoxyCompactList}\small\item\em Mostrar la informacion de las cuentas de un cliente especifico. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDBManager_ad9a34b2d4936a1e230966a94804941a4}{add\+Client}} (int id\+Client, std\+::string firs\+Name, std\+::string last\+Name)
+\begin{DoxyCompactList}\small\item\em Agregar un cliente a la base de datos. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDBManager_a8dde326035c1a21824700ba8d4c1c655}{add\+Account}} (int client, int curr, float rate)
+\begin{DoxyCompactList}\small\item\em Agregar una cuenta a la base de datos. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDBManager_a507eb2c1ddf9abb51242911b55779001}{deposit}} (int amount, int curr, int acc\+\_\+\+ID)
+\begin{DoxyCompactList}\small\item\em Realizar un deposito a una cuenta especifica. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDBManager_ae3a634b2bf8a33df216823819000ca6f}{withdrawal}} (int amount, int acc\+\_\+\+ID)
+\begin{DoxyCompactList}\small\item\em Realizar un retiro de una cuenta especifica. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDBManager_a1ca18c1f33caf352d8e27e335f2150e7}{transference}} (int amount, int acc\+\_\+\+ID, int dest\+\_\+acc\+\_\+\+ID)
+\begin{DoxyCompactList}\small\item\em Realizar transferencias entre cuentas especificas. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDBManager_aeaa18bd9bba979e19886b5d009fd8954}{loan\+Payment}} (int amount, int acc\+\_\+\+ID, int loan\+\_\+\+ID)
+\begin{DoxyCompactList}\small\item\em Realizar un pago a un prestamo. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDBManager_a9f521fb8d236380a9f45ef5748e5ff4a}{loan\+Report}} (int client\+\_\+\+ID)
+\begin{DoxyCompactList}\small\item\em Imprimir reporte de prestamos de un cliente especifico. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDBManager_ad3bcad317eb2f952cb63f68c78845c40}{add\+Transaction}} (int account\+I\+D2, int accoutn\+I\+D1, unsigned long int amount\+Transaction, int type\+Transaction, int loan\+ID)
+\begin{DoxyCompactList}\small\item\em Agregar una transaccion al registro de transacciones. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDBManager_a1c56f7fd4ae09d33dd5d90adfd8cb437}{add\+Loan}} (int client\+\_\+\+ID, int amount, float rate, int payments, int type, int curr)
+\begin{DoxyCompactList}\small\item\em Agregar un prestamo a la base de datos. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Clase cuya instanciacion crea y manipula la base datos por medio de operaciones C\+R\+UD. 
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classDBManager_afb4f09d26522754aab71b801716a8325}\label{classDBManager_afb4f09d26522754aab71b801716a8325}} 
+\index{DBManager@{DBManager}!DBManager@{DBManager}}
+\index{DBManager@{DBManager}!DBManager@{DBManager}}
+\doxysubsubsection{\texorpdfstring{DBManager()}{DBManager()}}
+{\footnotesize\ttfamily D\+B\+Manager\+::\+D\+B\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructor de objetos tipo \mbox{\hyperlink{classDBManager}{D\+B\+Manager}}. 
+
+\hypertarget{classDBManager_autotoc_md0}{}\doxysubsubsection{Tareas\+:}\label{classDBManager_autotoc_md0}
+
+\begin{DoxyEnumerate}
+\item Creacion de la base de datos \textquotesingle{}banksys.\+db\textquotesingle{} si esta no existe.
+\item Creacion de las tablas \textquotesingle{}C\+L\+I\+E\+N\+TS\textquotesingle{}, \textquotesingle{}A\+C\+C\+O\+U\+N\+TS\textquotesingle{}, \textquotesingle{}L\+O\+A\+NS\textquotesingle{} y \textquotesingle{}T\+R\+A\+N\+S\+A\+C\+T\+I\+O\+NS\textquotesingle{} con sus respectivas especificaciones, keys y constraints. 
+\end{DoxyEnumerate}\mbox{\Hypertarget{classDBManager_ae6d8cb78041c8ff0c5e77609ca512df0}\label{classDBManager_ae6d8cb78041c8ff0c5e77609ca512df0}} 
+\index{DBManager@{DBManager}!````~DBManager@{$\sim$DBManager}}
+\index{````~DBManager@{$\sim$DBManager}!DBManager@{DBManager}}
+\doxysubsubsection{\texorpdfstring{$\sim$DBManager()}{~DBManager()}}
+{\footnotesize\ttfamily D\+B\+Manager\+::$\sim$\+D\+B\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor de objetos tipo \mbox{\hyperlink{classDBManager}{D\+B\+Manager}}. 
+
+Cierra la base de datos \textquotesingle{}banksys.\+db\textquotesingle{}. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classDBManager_a8dde326035c1a21824700ba8d4c1c655}\label{classDBManager_a8dde326035c1a21824700ba8d4c1c655}} 
+\index{DBManager@{DBManager}!addAccount@{addAccount}}
+\index{addAccount@{addAccount}!DBManager@{DBManager}}
+\doxysubsubsection{\texorpdfstring{addAccount()}{addAccount()}}
+{\footnotesize\ttfamily void D\+B\+Manager\+::add\+Account (\begin{DoxyParamCaption}\item[{int}]{client,  }\item[{int}]{curr,  }\item[{float}]{rate }\end{DoxyParamCaption})}
+
+
+
+Agregar una cuenta a la base de datos. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em client} & ID del cliente que sera el dueno. \\
+\hline
+{\em curr} & Tipo de moneda en el que desea la cuenta (\$ o ₡). \\
+\hline
+{\em rate} & Tasa de interes de la cuenta. Distinta de cero si es un C\+DP. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDBManager_ad9a34b2d4936a1e230966a94804941a4}\label{classDBManager_ad9a34b2d4936a1e230966a94804941a4}} 
+\index{DBManager@{DBManager}!addClient@{addClient}}
+\index{addClient@{addClient}!DBManager@{DBManager}}
+\doxysubsubsection{\texorpdfstring{addClient()}{addClient()}}
+{\footnotesize\ttfamily void D\+B\+Manager\+::add\+Client (\begin{DoxyParamCaption}\item[{int}]{id\+Client,  }\item[{std\+::string}]{firs\+Name,  }\item[{std\+::string}]{last\+Name }\end{DoxyParamCaption})}
+
+
+
+Agregar un cliente a la base de datos. 
+
+Esta funcion no es incluida en las operaciones de atencion al cliente. ES usada para la creacion de cleintes default en el sistema.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id\+Client} & ID del nuevo cliente. \\
+\hline
+{\em firs\+Name} & Nombre del nuevo cliente. \\
+\hline
+{\em last\+Name} & Apellido dle nuevo cliente. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDBManager_a1c56f7fd4ae09d33dd5d90adfd8cb437}\label{classDBManager_a1c56f7fd4ae09d33dd5d90adfd8cb437}} 
+\index{DBManager@{DBManager}!addLoan@{addLoan}}
+\index{addLoan@{addLoan}!DBManager@{DBManager}}
+\doxysubsubsection{\texorpdfstring{addLoan()}{addLoan()}}
+{\footnotesize\ttfamily void D\+B\+Manager\+::add\+Loan (\begin{DoxyParamCaption}\item[{int}]{client\+\_\+\+ID,  }\item[{int}]{amount,  }\item[{float}]{rate,  }\item[{int}]{payments,  }\item[{int}]{type,  }\item[{int}]{curr }\end{DoxyParamCaption})}
+
+
+
+Agregar un prestamo a la base de datos. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+\_\+\+ID} & ID del cleinte al que se le asociara el nuevo prestamo. \\
+\hline
+{\em amount} & Monto inicial dle prestamo. \\
+\hline
+{\em rate} & Tasa de interes del prestamo. \\
+\hline
+{\em payments} & Cantidad de cuotas del prestamo. \\
+\hline
+{\em type} & Tipo de prestamo =$>$ 1 para personal, 2 para prendario y 3 para hipotecario. \\
+\hline
+{\em curr} & Tipo de moneda en el que se pide el prestamo =$>$ 1 para \$ y 2 para ₡. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDBManager_ad3bcad317eb2f952cb63f68c78845c40}\label{classDBManager_ad3bcad317eb2f952cb63f68c78845c40}} 
+\index{DBManager@{DBManager}!addTransaction@{addTransaction}}
+\index{addTransaction@{addTransaction}!DBManager@{DBManager}}
+\doxysubsubsection{\texorpdfstring{addTransaction()}{addTransaction()}}
+{\footnotesize\ttfamily void D\+B\+Manager\+::add\+Transaction (\begin{DoxyParamCaption}\item[{int}]{account\+I\+D2,  }\item[{int}]{accoutn\+I\+D1,  }\item[{unsigned long int}]{amount\+Transaction,  }\item[{int}]{type\+Transaction,  }\item[{int}]{loan\+ID }\end{DoxyParamCaption})}
+
+
+
+Agregar una transaccion al registro de transacciones. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em account\+I\+D2} & ID de la cuenta destino, de haber una. De no haber, se ingresa la misma que la fuente. \\
+\hline
+{\em accoutn\+I\+D1} & ID de la cuenta fuente. \\
+\hline
+{\em amount\+Transaction} & Monto de la transaccion. \\
+\hline
+{\em type\+Transaction} & Tipo de transaccion =$>$ 1 para deposito, 2 para retiro, 3 para transferencia y 4 para abono a prestamo. \\
+\hline
+{\em loan\+ID} & ID del prestamo, de ser el caso. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDBManager_aa6379af669495264ccfee8730eb670cd}\label{classDBManager_aa6379af669495264ccfee8730eb670cd}} 
+\index{DBManager@{DBManager}!checkClientID@{checkClientID}}
+\index{checkClientID@{checkClientID}!DBManager@{DBManager}}
+\doxysubsubsection{\texorpdfstring{checkClientID()}{checkClientID()}}
+{\footnotesize\ttfamily int D\+B\+Manager\+::check\+Client\+ID (\begin{DoxyParamCaption}\item[{int}]{ID }\end{DoxyParamCaption})}
+
+
+
+Revision de existencia de un cliente especifico. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ID} & ID del cliente que se desea revisar si existe en la base de datos del banco. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDBManager_a507eb2c1ddf9abb51242911b55779001}\label{classDBManager_a507eb2c1ddf9abb51242911b55779001}} 
+\index{DBManager@{DBManager}!deposit@{deposit}}
+\index{deposit@{deposit}!DBManager@{DBManager}}
+\doxysubsubsection{\texorpdfstring{deposit()}{deposit()}}
+{\footnotesize\ttfamily void D\+B\+Manager\+::deposit (\begin{DoxyParamCaption}\item[{int}]{amount,  }\item[{int}]{curr,  }\item[{int}]{acc\+\_\+\+ID }\end{DoxyParamCaption})}
+
+
+
+Realizar un deposito a una cuenta especifica. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & Monto que se desea depositar. \\
+\hline
+{\em curr} & Tipo de moneda en el que se deposita. \\
+\hline
+{\em acc\+\_\+\+ID} & ID de cuenta a la que se desea depositar. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDBManager_a4f9a361572a47d688a4837fe6bc9d125}\label{classDBManager_a4f9a361572a47d688a4837fe6bc9d125}} 
+\index{DBManager@{DBManager}!getAccountsInfo@{getAccountsInfo}}
+\index{getAccountsInfo@{getAccountsInfo}!DBManager@{DBManager}}
+\doxysubsubsection{\texorpdfstring{getAccountsInfo()}{getAccountsInfo()}}
+{\footnotesize\ttfamily void D\+B\+Manager\+::get\+Accounts\+Info (\begin{DoxyParamCaption}\item[{int}]{client\+ID }\end{DoxyParamCaption})}
+
+
+
+Mostrar la informacion de las cuentas de un cliente especifico. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+ID} & ID del cliente dueno de las cuentas a mostrar. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDBManager_aeaa18bd9bba979e19886b5d009fd8954}\label{classDBManager_aeaa18bd9bba979e19886b5d009fd8954}} 
+\index{DBManager@{DBManager}!loanPayment@{loanPayment}}
+\index{loanPayment@{loanPayment}!DBManager@{DBManager}}
+\doxysubsubsection{\texorpdfstring{loanPayment()}{loanPayment()}}
+{\footnotesize\ttfamily void D\+B\+Manager\+::loan\+Payment (\begin{DoxyParamCaption}\item[{int}]{amount,  }\item[{int}]{acc\+\_\+\+ID,  }\item[{int}]{loan\+\_\+\+ID }\end{DoxyParamCaption})}
+
+
+
+Realizar un pago a un prestamo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & Monto que se pagara. \\
+\hline
+{\em acc\+\_\+\+ID} & Cuenta desde la que se desea pagar. \\
+\hline
+{\em loan\+\_\+\+ID} & ID del prestamo hacia el que se abonara. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDBManager_a9f521fb8d236380a9f45ef5748e5ff4a}\label{classDBManager_a9f521fb8d236380a9f45ef5748e5ff4a}} 
+\index{DBManager@{DBManager}!loanReport@{loanReport}}
+\index{loanReport@{loanReport}!DBManager@{DBManager}}
+\doxysubsubsection{\texorpdfstring{loanReport()}{loanReport()}}
+{\footnotesize\ttfamily void D\+B\+Manager\+::loan\+Report (\begin{DoxyParamCaption}\item[{int}]{client\+\_\+\+ID }\end{DoxyParamCaption})}
+
+
+
+Imprimir reporte de prestamos de un cliente especifico. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+\_\+\+ID} & ID del cliente cuyo reporte se desea obtener. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDBManager_a1ca18c1f33caf352d8e27e335f2150e7}\label{classDBManager_a1ca18c1f33caf352d8e27e335f2150e7}} 
+\index{DBManager@{DBManager}!transference@{transference}}
+\index{transference@{transference}!DBManager@{DBManager}}
+\doxysubsubsection{\texorpdfstring{transference()}{transference()}}
+{\footnotesize\ttfamily void D\+B\+Manager\+::transference (\begin{DoxyParamCaption}\item[{int}]{amount,  }\item[{int}]{acc\+\_\+\+ID,  }\item[{int}]{dest\+\_\+acc\+\_\+\+ID }\end{DoxyParamCaption})}
+
+
+
+Realizar transferencias entre cuentas especificas. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & Monto que se desea transferir. \\
+\hline
+{\em acc\+\_\+\+ID} & ID de la cuenta desde la que se desea transferir. \\
+\hline
+{\em dest\+\_\+acc\+\_\+\+ID} & ID de la cuenta a la que se desea transferir. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDBManager_ae3a634b2bf8a33df216823819000ca6f}\label{classDBManager_ae3a634b2bf8a33df216823819000ca6f}} 
+\index{DBManager@{DBManager}!withdrawal@{withdrawal}}
+\index{withdrawal@{withdrawal}!DBManager@{DBManager}}
+\doxysubsubsection{\texorpdfstring{withdrawal()}{withdrawal()}}
+{\footnotesize\ttfamily void D\+B\+Manager\+::withdrawal (\begin{DoxyParamCaption}\item[{int}]{amount,  }\item[{int}]{acc\+\_\+\+ID }\end{DoxyParamCaption})}
+
+
+
+Realizar un retiro de una cuenta especifica. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & Monto que se desea retirar. \\
+\hline
+{\em acc\+\_\+\+ID} & ID de la cuenta de la que se desea retirar. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{DBManager_8hpp}{D\+B\+Manager.\+hpp}}\item 
+D\+B\+Manager.\+cpp\end{DoxyCompactItemize}

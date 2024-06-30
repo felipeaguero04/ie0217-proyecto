@@ -1,0 +1,183 @@
+\hypertarget{LoansInfoMode_8hpp}{}\doxysection{Loans\+Info\+Mode.\+hpp File Reference}
+\label{LoansInfoMode_8hpp}\index{LoansInfoMode.hpp@{LoansInfoMode.hpp}}
+
+
+Modalidad de informacion general de prestamos.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+Include dependency graph for Loans\+Info\+Mode.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{LoansInfoMode_8hpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{LoansInfoMode_8hpp_ae3d856d665e273120a7178a0349d37a5}{Currencies}} \{ {\bfseries D\+O\+L\+L\+A\+RS} = 1, 
+{\bfseries C\+O\+L\+O\+N\+ES}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum usado para identificar entre dolares y colones en los menus. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{LoansInfoMode_8hpp_ae1dadc412e5f2636afcd52dd15099377}{Loan\+Menu\+Options}} \{ {\bfseries P\+E\+R\+S\+O\+N\+AL} = 1, 
+{\bfseries P\+R\+E\+N\+D\+A\+RY}, 
+{\bfseries M\+O\+R\+T\+G\+A\+GE}, 
+{\bfseries R\+E\+T\+U\+RN}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum para las opciones de tipos de prestamos. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{LoansInfoMode_8hpp_a9109f611b41f96e35e51ff58ece36c4b}{get\+General\+Loan\+Info}} ()
+\begin{DoxyCompactList}\small\item\em Menu inicial de la modalidad de informacion de prestamos. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{LoansInfoMode_8hpp_afa1e76922d5f6be313c4b855a863f239}{get\+Personal\+Loan\+Info}} (float $\ast$\+\_\+rate)
+\begin{DoxyCompactList}\small\item\em Obtener la informacion sobre prestamos personales. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{LoansInfoMode_8hpp_adf722eea1c9d5dfa8a2cf176103dffde}{get\+Prendary\+Loan\+Info}} (float $\ast$\+\_\+rate)
+\begin{DoxyCompactList}\small\item\em Obtener la informacion sobre prestamos prendarios. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{LoansInfoMode_8hpp_ac0e1952969731a966b4bbc2a9e9a06c0}{get\+Mortgage\+Info}} (float $\ast$\+\_\+rate)
+\begin{DoxyCompactList}\small\item\em Obtener la informacion sobre prestamos hipotecarios. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{LoansInfoMode_8hpp_a4cbf2b445f88832a43a118b146bcc828}{imprimir\+Tabla\+Pagos}} (unsigned long int monto, float tasa\+Interes, int numero\+Pagos)
+\begin{DoxyCompactList}\small\item\em Funcion que imprime la tabla de pagos para un prestamo establecido. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{LoansInfoMode_8hpp_a460a23cd1e243709076abcdd3d614bfb}{calcular\+Pago\+Mensual}} (unsigned long int monto, float tasa\+Interes, int numero\+Pagos)
+\begin{DoxyCompactList}\small\item\em Calculo de la cuota mensual del prestamo. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Modalidad de informacion general de prestamos. 
+
+\begin{DoxyAuthor}{Author}
+Jorge Meneses (\href{mailto:j.menesesgarro@gmail.com}{\texttt{ j.\+menesesgarro@gmail.\+com}}), Ismael Jimenez () and Luis Felipe Aguero () 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2024-\/07-\/1
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2024 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{LoansInfoMode_8hpp_ae3d856d665e273120a7178a0349d37a5}\label{LoansInfoMode_8hpp_ae3d856d665e273120a7178a0349d37a5}} 
+\index{LoansInfoMode.hpp@{LoansInfoMode.hpp}!Currencies@{Currencies}}
+\index{Currencies@{Currencies}!LoansInfoMode.hpp@{LoansInfoMode.hpp}}
+\doxysubsubsection{\texorpdfstring{Currencies}{Currencies}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{LoansInfoMode_8hpp_ae3d856d665e273120a7178a0349d37a5}{Currencies}}}
+
+
+
+Enum usado para identificar entre dolares y colones en los menus. 
+
+\mbox{\Hypertarget{LoansInfoMode_8hpp_ae1dadc412e5f2636afcd52dd15099377}\label{LoansInfoMode_8hpp_ae1dadc412e5f2636afcd52dd15099377}} 
+\index{LoansInfoMode.hpp@{LoansInfoMode.hpp}!LoanMenuOptions@{LoanMenuOptions}}
+\index{LoanMenuOptions@{LoanMenuOptions}!LoansInfoMode.hpp@{LoansInfoMode.hpp}}
+\doxysubsubsection{\texorpdfstring{LoanMenuOptions}{LoanMenuOptions}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{LoansInfoMode_8hpp_ae1dadc412e5f2636afcd52dd15099377}{Loan\+Menu\+Options}}}
+
+
+
+Enum para las opciones de tipos de prestamos. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{LoansInfoMode_8hpp_a460a23cd1e243709076abcdd3d614bfb}\label{LoansInfoMode_8hpp_a460a23cd1e243709076abcdd3d614bfb}} 
+\index{LoansInfoMode.hpp@{LoansInfoMode.hpp}!calcularPagoMensual@{calcularPagoMensual}}
+\index{calcularPagoMensual@{calcularPagoMensual}!LoansInfoMode.hpp@{LoansInfoMode.hpp}}
+\doxysubsubsection{\texorpdfstring{calcularPagoMensual()}{calcularPagoMensual()}}
+{\footnotesize\ttfamily double calcular\+Pago\+Mensual (\begin{DoxyParamCaption}\item[{unsigned long int}]{monto,  }\item[{float}]{tasa\+Interes,  }\item[{int}]{numero\+Pagos }\end{DoxyParamCaption})}
+
+
+
+Calculo de la cuota mensual del prestamo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em monto} & Monto sobre el que se calcula. \\
+\hline
+{\em tasa\+Interes} & Tasa de interes del prestamo. \\
+\hline
+{\em numero\+Pagos} & Cantidad de cuotas del prestamo. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double Cuota. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{LoansInfoMode_8hpp_a9109f611b41f96e35e51ff58ece36c4b}\label{LoansInfoMode_8hpp_a9109f611b41f96e35e51ff58ece36c4b}} 
+\index{LoansInfoMode.hpp@{LoansInfoMode.hpp}!getGeneralLoanInfo@{getGeneralLoanInfo}}
+\index{getGeneralLoanInfo@{getGeneralLoanInfo}!LoansInfoMode.hpp@{LoansInfoMode.hpp}}
+\doxysubsubsection{\texorpdfstring{getGeneralLoanInfo()}{getGeneralLoanInfo()}}
+{\footnotesize\ttfamily void get\+General\+Loan\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Menu inicial de la modalidad de informacion de prestamos. 
+
+\mbox{\Hypertarget{LoansInfoMode_8hpp_ac0e1952969731a966b4bbc2a9e9a06c0}\label{LoansInfoMode_8hpp_ac0e1952969731a966b4bbc2a9e9a06c0}} 
+\index{LoansInfoMode.hpp@{LoansInfoMode.hpp}!getMortgageInfo@{getMortgageInfo}}
+\index{getMortgageInfo@{getMortgageInfo}!LoansInfoMode.hpp@{LoansInfoMode.hpp}}
+\doxysubsubsection{\texorpdfstring{getMortgageInfo()}{getMortgageInfo()}}
+{\footnotesize\ttfamily void get\+Mortgage\+Info (\begin{DoxyParamCaption}\item[{float $\ast$}]{\+\_\+rate }\end{DoxyParamCaption})}
+
+
+
+Obtener la informacion sobre prestamos hipotecarios. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+rate} & Tasa de interes \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LoansInfoMode_8hpp_afa1e76922d5f6be313c4b855a863f239}\label{LoansInfoMode_8hpp_afa1e76922d5f6be313c4b855a863f239}} 
+\index{LoansInfoMode.hpp@{LoansInfoMode.hpp}!getPersonalLoanInfo@{getPersonalLoanInfo}}
+\index{getPersonalLoanInfo@{getPersonalLoanInfo}!LoansInfoMode.hpp@{LoansInfoMode.hpp}}
+\doxysubsubsection{\texorpdfstring{getPersonalLoanInfo()}{getPersonalLoanInfo()}}
+{\footnotesize\ttfamily void get\+Personal\+Loan\+Info (\begin{DoxyParamCaption}\item[{float $\ast$}]{\+\_\+rate }\end{DoxyParamCaption})}
+
+
+
+Obtener la informacion sobre prestamos personales. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+rate} & Tasa de interes. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LoansInfoMode_8hpp_adf722eea1c9d5dfa8a2cf176103dffde}\label{LoansInfoMode_8hpp_adf722eea1c9d5dfa8a2cf176103dffde}} 
+\index{LoansInfoMode.hpp@{LoansInfoMode.hpp}!getPrendaryLoanInfo@{getPrendaryLoanInfo}}
+\index{getPrendaryLoanInfo@{getPrendaryLoanInfo}!LoansInfoMode.hpp@{LoansInfoMode.hpp}}
+\doxysubsubsection{\texorpdfstring{getPrendaryLoanInfo()}{getPrendaryLoanInfo()}}
+{\footnotesize\ttfamily void get\+Prendary\+Loan\+Info (\begin{DoxyParamCaption}\item[{float $\ast$}]{\+\_\+rate }\end{DoxyParamCaption})}
+
+
+
+Obtener la informacion sobre prestamos prendarios. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+rate} & Tasa de interes \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LoansInfoMode_8hpp_a4cbf2b445f88832a43a118b146bcc828}\label{LoansInfoMode_8hpp_a4cbf2b445f88832a43a118b146bcc828}} 
+\index{LoansInfoMode.hpp@{LoansInfoMode.hpp}!imprimirTablaPagos@{imprimirTablaPagos}}
+\index{imprimirTablaPagos@{imprimirTablaPagos}!LoansInfoMode.hpp@{LoansInfoMode.hpp}}
+\doxysubsubsection{\texorpdfstring{imprimirTablaPagos()}{imprimirTablaPagos()}}
+{\footnotesize\ttfamily void imprimir\+Tabla\+Pagos (\begin{DoxyParamCaption}\item[{unsigned long int}]{monto,  }\item[{float}]{tasa\+Interes,  }\item[{int}]{numero\+Pagos }\end{DoxyParamCaption})}
+
+
+
+Funcion que imprime la tabla de pagos para un prestamo establecido. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em monto} & Monto por el que se pide el prestamo. \\
+\hline
+{\em tasa\+Interes} & Tasa de interes del prestamo. \\
+\hline
+{\em numero\+Pagos} & Cantidad de cuotas del prestamo. \\
+\hline
+\end{DoxyParams}
