@@ -52,4 +52,11 @@ void abonarPrestamo(DBManager* dbManager);
  */
 void mostrarReportePrestamos(DBManager* dbManager, const int& clientID);
 
+
+/**
+ * @brief Pide un préstamo.
+ * 
+ * @param dbManager Puntero al administrador de la base de datos.
+ */
+void PedirPrestamos(DBManager* dbManager);
 #endif // CLIENTMODE_HPP

@@ -15,7 +15,8 @@ void mostrarMenuAtencionClientes(DBManager* dbManager, const int& clientID) {
         cout << "\t3. Transferencia entre Cuentas\n";
         cout << "\t4. Abonar a Préstamo\n";
         cout << "\t5. Mostrar Reporte de Préstamos\n";
-        cout << "\t6. Volver al Menú Principal\n";
+        cout << "\t6. Pedir un Préstamo\n";
+        cout << "\t7. Volver al Menú Principal\n";
         cout << "Seleccione una opción: ";
 
         try {
@@ -43,6 +44,9 @@ void mostrarMenuAtencionClientes(DBManager* dbManager, const int& clientID) {
                 mostrarReportePrestamos(dbManager, clientID);
                 break;
             case 6:
+                PedirPrestamos(dbManager);
+                break;
+            case 7:
                 return;
             default:
                 cout << "Opción no válida. Por favor, seleccione una opción del 1 al 6. Inténtelo de nuevo." << endl;
@@ -236,4 +240,24 @@ void abonarPrestamo(DBManager* dbManager) {
 
 void mostrarReportePrestamos(DBManager* dbManager, const int& clientID) {
     dbManager->loanReport(clientID);
-}
+};
+
+void PedirPrestamos(DBManager* dbManager) {
+    int client_ID, amount, payments, type, curr;
+    float rate;
+
+    std::cout << "Ingrese el ID del cliente: ";
+    std::cin >> client_ID;
+    std::cout << "Ingrese el monto del préstamo: ";
+    std::cin >> amount;
+    std::cout << "Ingrese la tasa de interés (por ejemplo, 5.5): ";
+    std::cin >> rate;
+    std::cout << "Ingrese el número de pagos: ";
+    std::cin >> payments;
+    std::cout << "Ingrese el tipo de préstamo (1: Personal, 2: Prendario, 3: Hipotecario): ";
+    std::cin >> type;
+    std::cout << "Ingrese el tipo de moneda (1: $, 2: ₡): ";
+    std::cin >> curr;
+
+    dbManager->addLoan(client_ID, amount, rate, payments, type, curr);
+};
