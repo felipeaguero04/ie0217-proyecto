@@ -17,6 +17,8 @@ Este instructivo para la compilación y ejecución de los archivos en esta carpe
     $ make clean    # Limpia los archivos compilados creados
     $ make doxygen  # Despliega la documentación Doxygen
 
+- Para simplificar el proceso, también se alojó el HTML producido por Doxygen en Netlify, en [este enlace.](https://proyectoie0217.netlify.app/index.html)
+
 # Introducción
 ## 1. Modalidad de Operación: 
 El sistema a implementar será utilizado por agentes que atienden a clientes a través de ventanillas en una entidad bancaria y es importante entender los modos de operación disponibles
