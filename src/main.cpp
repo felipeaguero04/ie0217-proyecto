@@ -58,6 +58,7 @@ int main(){
                     break;
                 }
                 if (DBManager.checkClientID(clientChek) == 1){
+                    DBManager.getAccountsInfo(clientChek);
                     mostrarMenuAtencionClientes(&DBManager, clientChek);
                 } else {
                     continue;
