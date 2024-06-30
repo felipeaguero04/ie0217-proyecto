@@ -13,12 +13,12 @@ int main(){
     int mainOption;
     int clientChek;
     DBManager DBManager;
-    DBManager.addClient(305510245, "Luis", "Felipe");
+    DBManager.addClient(305510245, "Luis", "F");
     DBManager.addClient(208190783, "Ismael", "Jimenez");
     DBManager.addAccount(208190783, 2, 0);
     DBManager.addAccount(305510245, 2, 0);
     DBManager.addLoan(305510245, 400000, 0.02, 20, 1, 2);
-    DBManager.addLoan(305510245, 400000, 0.02, 20, 2, 2);
+    DBManager.addLoan(208190783, 400000, 0.02, 20, 2, 2);
 
     do{
         cout << "-------------------------------------------" << endl;
