@@ -370,6 +370,7 @@ void DBManager::transference(int amount, int acc_ID, int dest_acc_ID){
     double sourcebal, destbal;
     const unsigned char* sourcecurr;
     const unsigned char* destcurr;
+    int bal;
     
     ss << "SELECT balance, currency FROM ACCOUNTS WHERE account_ID = " << acc_ID << ";";
     aux = ss.str();
@@ -386,6 +387,14 @@ void DBManager::transference(int amount, int acc_ID, int dest_acc_ID){
     // Ejecutar consulta SELECT
     rc = sqlite3_step(stmt);
     if (rc == SQLITE_ROW) {
+        bal = sqlite3_column_double(stmt, 0);
+
+        // Verificar si el balance es suficiente para la transferencia
+        if (bal < amount) {
+            cerr << "Error: Fondos insuficientes para realizar la transferencia." << endl;
+            sqlite3_finalize(stmt); // Finalizar statement SELECT
+            return;
+        }
         sourcebal = sqlite3_column_double(stmt, 0);
         sourcecurr = sqlite3_column_text(stmt, 1);
     }
@@ -477,6 +486,12 @@ void DBManager::loanPayment(int amount, int acc_ID, int loan_ID){
     if (rc == SQLITE_ROW) {
         accountbal = sqlite3_column_double(stmt, 0);
         acccurr = sqlite3_column_text(stmt, 1);
+
+        if (accountbal < amount) {
+            cerr << "Error: Fondos insuficientes para realizar el pago del préstamo." << endl;
+            sqlite3_finalize(stmt); // Finalizar statement SELECT
+            return;
+        }
     }
 
     ss.str("");
@@ -504,9 +519,9 @@ void DBManager::loanPayment(int amount, int acc_ID, int loan_ID){
             cout << "COLONES A DOLARES" << endl;
             ss.str(""); // Limpiar stringstream
             ss << "UPDATE LOANS SET made_payments = " << (made_payments + 1)
-               << ", paid_amount = " << (paid_amount + amount/EXCHANGE)
+               << ", paid_amount = " << (paid_amount + amount)
                << " WHERE loan_ID = " << loan_ID << ";"
-               << "UPDATE ACCOUNTS SET balance = " << (accountbal - amount)
+               << "UPDATE ACCOUNTS SET balance = " << (accountbal - amount*EXCHANGE)
                << " WHERE account_ID = " << acc_ID << ";";
             aux = ss.str();
             sql = aux.c_str();
@@ -515,9 +530,9 @@ void DBManager::loanPayment(int amount, int acc_ID, int loan_ID){
             cout << "DOLARES A DOLARES" << endl;
             ss.str(""); // Limpiar stringstream
             ss << "UPDATE LOANS SET made_payments = " << (made_payments + 1)
-               << ", paid_amount = " << (paid_amount + amount*EXCHANGE)
+               << ", paid_amount = " << (paid_amount + amount)
                << " WHERE loan_ID = " << loan_ID << ";"
-               << "UPDATE ACCOUNTS SET balance = " << (accountbal - amount)
+               << "UPDATE ACCOUNTS SET balance = " << (accountbal - amount/EXCHANGE)
                << " WHERE account_ID = " << acc_ID << ";";
             aux = ss.str();
             sql = aux.c_str();
@@ -581,6 +596,7 @@ void DBManager::loanReport(int client_ID) {
 
     output_file.close(); // Cerrar el archivo
 };
+
 void DBManager::addTransaction(int accountID2, int accountID1, unsigned long int amountTransaction, int typeTransaction, int loanID){
     std::stringstream ss;
     string aux, typestr;
