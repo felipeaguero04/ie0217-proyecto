@@ -44,8 +44,19 @@ int main(){
                 getGeneralLoanInfo();
                 break;
             case CLIENTS:
-                cout << "Ingrese el ID del cliente: " << endl;
-                cin >> clientChek;
+                while (true){
+                    cout << "Ingrese el ID del cliente: " << endl;
+                    // Solicita al usuario ingresar el monto del préstamo.                
+                    try {
+                        InputValidator::intInput(clientChek);
+                    } 
+                    // El catch agarra el error 
+                    catch (const invalid_argument& e) {
+                        cout << e.what() << endl;
+                        continue;
+                    }
+                    break;
+                }
                 if (DBManager.checkClientID(clientChek) == 1){
                     mostrarMenuAtencionClientes(&DBManager, clientChek);
                 } else {
